@@ -9,8 +9,9 @@ export interface MetaData {
     };
 }
 
+export type RouteMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head'
 export interface CustomRoute {
-    method: string;
+    method: RouteMethod;
     url: string;
     middleware?: any;
     customResponse?: boolean;

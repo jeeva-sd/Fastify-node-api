@@ -1,21 +1,23 @@
-// import { NextFunction, Response } from 'express';
-// import * as yup from 'yup';
-// import { RequestX, clientError } from '~/utils';
-// import { appConfig } from '~/config';
-// import { MiddlewareFunction } from './types';
+import * as yup from 'yup';
+import { ReplayX, RequestX, clientError } from '~/utils';
+import { appConfig } from '~/config';
 
-// export const validateParams = (schema: yup.AnyObjectSchema): MiddlewareFunction => {
-//     return async (req: RequestX, res: Response, next: NextFunction): Promise<void> => {
-//         try {
-//             const params = { ...req.body, ...req.params, ...req.query, ...req.parameters };
-//             const validatedParams = await schema.validate(params, {
-//                 abortEarly: appConfig.validation.abortEarly
-//             });
+export const validateParams = (schema: yup.AnyObjectSchema) => {
+    return async (req: RequestX, reply: ReplayX): Promise<void> => {
+        try {
+            const params = {
+                ...(typeof req.body === 'object' ? req.body : {}),
+                ...(typeof req.params === 'object' ? req.params : {}),
+                ...(typeof req.query === 'object' ? req.query : {})
+            };
 
-//             req.parameters = { ...validatedParams, ...req.parameters };
-//             next();
-//         } catch (error) {
-//             res.status(400).send(clientError(error));
-//         }
-//     };
-// };
+            const abortEarly = appConfig.validation.abortEarly;
+            const validatedParams = await schema.validate(params, { abortEarly });
+
+            req.parameters = { ...validatedParams, ...req.parameters };
+        } catch (error) {
+            reply.status(400).send(clientError(error));
+            return;
+        }
+    };
+};

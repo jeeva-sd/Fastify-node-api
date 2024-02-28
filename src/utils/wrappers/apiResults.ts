@@ -12,8 +12,8 @@ const buildResponseX = (code: number, data?: any, options?: any): ResponseX => {
 
   return {
     version: appConfig.app.version,
-    code,
-    status,
+    statusCode: code,
+    statusType: status,
     message,
     data: data || null,
     error

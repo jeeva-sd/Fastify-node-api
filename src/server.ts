@@ -1,4 +1,4 @@
-import http, { Server as HttpServer } from 'http';
+import http, { Server as HttpServer, IncomingMessage, ServerResponse } from 'http';
 import fastify, { FastifyInstance as AppInstance } from 'fastify';
 import { App } from './app';
 import { appConfig } from '~/config';
@@ -8,16 +8,27 @@ class Server {
     private server: HttpServer;
     private instance: AppInstance<HttpServer>;
 
-    private serverFactory(handler: (arg0: http.IncomingMessage, arg1: http.ServerResponse<http.IncomingMessage> & { req: http.IncomingMessage; }) => void): HttpServer {
+    private serverFactory(handler: (req: IncomingMessage, res: ServerResponse) => void): HttpServer {
         this.server = http.createServer((req, res) => handler(req, res));
         return this.server;
     }
-    
+
     public run() {
         this.port = appConfig.app.port;
         const serverFactory = this.serverFactory.bind(this);
 
-        this.instance = fastify({ serverFactory });
+        this.instance = fastify({
+            serverFactory,
+            logger: {
+                transport: {
+                    target: 'pino-pretty',
+                    options: {
+                        translateTime: 'HH:MM:ss Z',
+                        ignore: 'pid,hostname',
+                    },
+                },
+            }
+        });
         this.instance.listen({ port: this.port });
 
         this.server.on('error', this.onError.bind(this));

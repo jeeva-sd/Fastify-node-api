@@ -1,11 +1,11 @@
 import { FastifyInstance as AppInstance } from 'fastify';
-import path from 'path';
-import { appConfig } from './config';
-import { exception, notFound, take, attachRouter } from '~/utils';
-import type { FastifyCookieOptions } from '@fastify/cookie';
-import cookie from '@fastify/cookie';
 import fastifyStatic from '@fastify/static';
-import { appControllers } from './controllers';
+import cookie from '@fastify/cookie';
+import type { FastifyCookieOptions } from '@fastify/cookie';
+import path from 'path';
+import { appControllers } from '~/controllers';
+import { exception, notFound, take, attachRouter } from '~/utils';
+import { appConfig } from '~/config';
 
 export class App {
     private app: AppInstance;

@@ -2,7 +2,7 @@ import { GetMetaData } from './prototype';
 import * as yup from 'yup';
 import { serverError } from '../wrappers';
 import { extractErrorMessage } from '../common';
-import { ClassPrototype, RepoResult, MiddlewareFunction } from './types';
+import { ClassPrototype, RepoResult, MiddlewareFunction, RouteMethod } from './types';
 
 // Controller decorator
 export const Controller = (controller: string, middleware?: MiddlewareFunction[]): ClassDecorator => {
@@ -27,7 +27,7 @@ export const Patch = (path: string) => setRoutes('patch', path);
 export const Put = (path: string) => setRoutes('put', path);
 export const Delete = (path: string) => setRoutes('delete', path);
 
-export const setRoutes = (method: string, path: string): MethodDecorator => {
+export const setRoutes = (method: RouteMethod, path: string): MethodDecorator => {
   return (target: ClassPrototype, methodName: string, descriptor: PropertyDescriptor) => {
     const meta = GetMetaData(target);
     meta.routes[methodName] = { ...meta.routes[methodName], method, url: path };
