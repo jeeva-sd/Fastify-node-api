@@ -1,0 +1,48 @@
+{
+    "env": {
+        "es2021": true,
+        "node": true
+    },
+    "parser": "@typescript-eslint/parser",
+    "parserOptions": {
+        "ecmaVersion": "latest",
+        "sourceType": "module"
+    },
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "rules": {
+        "semi": ["warn", "always"],
+        "quotes": ["warn", "single"],
+        "max-len": ["warn", { "code": 120 }],
+        "no-multiple-empty-lines": ["warn", { "max": 1 }],
+        "no-unused-vars": "warn",                   // unused variables
+        "no-empty": "warn",                         // empty blocks
+        "no-trailing-spaces": "warn",               // trailing spaces at the end of lines
+        "comma-spacing": "warn",                    // spacing around commas
+        "no-mixed-spaces-and-tabs": "warn",         // mixed spaces and tabs for indentation
+        "no-multi-spaces": "warn",                  // multiple spaces
+        "indent": ["warn", 4],                      // incorrect indentation (2 spaces)
+        "object-curly-spacing": ["warn", "always"], // missing or inconsistent spacing in object literals
+        "array-bracket-spacing": ["warn", "never"], // inconsistent spacing in array brackets
+        "arrow-spacing": "warn",                    // spacing around arrow function parameters
+        "block-spacing": "warn",                    // inconsistent spacing within blocks
+        "key-spacing": "warn",                      // spacing around object keys
+        "no-console": ["warn", { "allow": ["warn", "error"] }]
+    },
+    "ignorePatterns": ["node_modules/", "dist/", "utils", "database", "messages.ts", "server.ts", "axios", "helper.ts"],
+    "overrides": [
+      {
+        "files": [ "**/*.ts" ],
+        "extends": [
+          "eslint:recommended",
+          "plugin:@typescript-eslint/recommended"
+        ],
+        "rules": {
+          "@typescript-eslint/explicit-module-boundary-types": "warn",
+          "@typescript-eslint/no-explicit-any": "warn",
+          "@typescript-eslint/no-unused-vars": "warn"
+        }
+      }
+    ]
+}

@@ -1,0 +1,13 @@
+node_modules
+
+# env 
+.local.env
+.env
+.dev.env
+.prod.env
+.stage.env
+
+# Build
+dist
+
+migrations
