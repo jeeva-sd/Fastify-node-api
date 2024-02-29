@@ -4,8 +4,9 @@ import cookie from '@fastify/cookie';
 import type { FastifyCookieOptions } from '@fastify/cookie';
 import path from 'path';
 import { appControllers } from '~/controllers';
-import { exception, notFound, take, attachRouter } from '~/utils';
+import { exception, notFound, take } from '~/utils';
 import { appConfig } from '~/config';
+import { attachRouter } from './router';
 
 export class App {
     private app: AppInstance;

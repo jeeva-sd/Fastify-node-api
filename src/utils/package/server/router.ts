@@ -1,7 +1,9 @@
 import { FastifyInstance } from 'fastify';
 import { validateParams } from '~/middlewares';
-import { GetMetaData, CustomRoute, serverError } from '~/utils';
-import { ReplayX, RequestX, ResponseX } from './types';
+import { ReplayX, RequestX, ResponseX } from '../types';
+import { GetMetaData } from '../io/request';
+import { CustomRoute } from '../io/types';
+import { serverError } from '../io/response';
 
 const attachRouter = (appRoutes: any[], instance: FastifyInstance) => {
     appRoutes.forEach((Controller) => {
@@ -16,7 +18,6 @@ const attachRouter = (appRoutes: any[], instance: FastifyInstance) => {
             const { method: routeMethod, middleware: routeMiddleware = [] } = route;
 
             instance.route({
-
                 method: routeMethod ,
                 url: controllerPath + route.url,
                 preHandler: [...routeMiddleware, ...paramValidationMiddleware],

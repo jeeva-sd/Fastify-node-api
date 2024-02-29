@@ -3,7 +3,7 @@ import fastify, { FastifyInstance as AppInstance } from 'fastify';
 import { App } from './app';
 import { appConfig } from '~/config';
 
-class Server {
+export class Server {
     private port: number;
     private server: HttpServer;
     private instance: AppInstance<HttpServer>;
@@ -80,6 +80,3 @@ class Server {
         });
     }
 }
-
-// Usage
-new Server().run();
