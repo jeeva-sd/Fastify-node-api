@@ -1,27 +1,25 @@
-import { FastifyInstance } from 'fastify';
+import { FastifyInstance as AppInstance } from 'fastify';
+import { GetMetaData, serverError } from '../io';
 import { validateParams } from '~/middlewares';
 import { ReplayX, RequestX, ResponseX } from '../types';
-import { GetMetaData } from '../io/request';
-import { CustomRoute } from '../io/types';
-import { serverError } from '../io/response';
 
-const attachRouter = (appRoutes: any[], instance: FastifyInstance) => {
+const attachRouter = (app: AppInstance, appRoutes: any[], prefix?: string) => {
     appRoutes.forEach((Controller) => {
         const controllerInstance = new Controller();
         const metaData = GetMetaData(controllerInstance);
 
         const { controllerMiddleware = [], controller: controllerPath, routes } = metaData;
 
-        Object.keys(routes).forEach((methodName: string) => {
-            const route: CustomRoute = routes[methodName];
+        Object.entries(routes).forEach(([methodName, route]) => {
             const paramValidationMiddleware = route?.sanitizeSchema ? [validateParams(route?.sanitizeSchema)] : [];
             const { method: routeMethod, middleware: routeMiddleware = [] } = route;
+            const urlPrefix = prefix ? prefix : '';
 
-            instance.route({
-                method: routeMethod ,
-                url: controllerPath + route.url,
-                preHandler: [...routeMiddleware, ...paramValidationMiddleware],
-                handler: async (request: RequestX, replay: ReplayX) => {
+            app.route({
+                method: routeMethod,
+                url: urlPrefix + controllerPath + route.url,
+                preHandler: [...controllerMiddleware, ...routeMiddleware, ...paramValidationMiddleware],
+                async handler(request: RequestX, replay: ReplayX) {
                     try {
                         const response = await controllerInstance[methodName](request, replay);
 
