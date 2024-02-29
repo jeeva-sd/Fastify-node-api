@@ -48,20 +48,19 @@ export const Delete = (path: string) => setRoutes('delete', path);
 // Middleware decorator
 export const Apply = (routeMiddleware: MiddlewareFunction | MiddlewareFunction[]) => {
     return (target: Record<string, any>, methodName: string, descriptor: PropertyDescriptor) => {
-      const meta = GetMetaData(target);
-      const middleware = Array.isArray(routeMiddleware) ? routeMiddleware : [routeMiddleware];
-      meta.routes[methodName] = { ...meta.routes[methodName], middleware };
-      return descriptor;
+        const meta = GetMetaData(target);
+        const middleware = Array.isArray(routeMiddleware) ? routeMiddleware : [routeMiddleware];
+        meta.routes[methodName] = { ...meta.routes[methodName], middleware };
+        return descriptor;
     };
-  };
-  
-  // Schema decorator
-  export const Sanitize = (schema: yup.Schema<any>) => {
+};
+
+// Schema decorator
+export const Sanitize = (schema: yup.Schema<any>) => {
     return (target: Record<string, any>, methodName: string, descriptor: PropertyDescriptor) => {
-      const meta = GetMetaData(target);
-      meta.routes[methodName] = { ...meta.routes[methodName], sanitizeSchema: schema };
-      return descriptor;
+        const meta = GetMetaData(target);
+        meta.routes[methodName] = { ...meta.routes[methodName], sanitizeSchema: schema };
+        return descriptor;
     };
-  };
-  
-  
+};
+
