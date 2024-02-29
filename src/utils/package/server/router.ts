@@ -19,28 +19,30 @@ const attachRouter = (app: AppInstance, appRoutes: any[], prefix?: string) => {
                 method: routeMethod,
                 url: urlPrefix + controllerPath + route.url,
                 preHandler: [...controllerMiddleware, ...routeMiddleware, ...paramValidationMiddleware],
-                async handler(request: RequestX, replay: ReplayX) {
+                async handler(request: RequestX, reply: ReplayX) {
                     try {
-                        const response = await controllerInstance[methodName](request, replay);
+                        const response = await controllerInstance[methodName](request, reply);
 
                         if (Object.prototype.hasOwnProperty.call(route, 'customResponse')) return null;
-                        if (!(response instanceof Promise)) return replay.send(response);
+                        if (!(response instanceof Promise)) {
+                            return sendResponse(reply, response);
+                        }
 
                         return response
-                            .then((data: ResponseX) => {
-                                if (data.statusType !== 'success') return replay.code(400).send(data);
-                                return replay.send(data);
-                            })
-                            .catch((error) => {
-                                replay.status(500).send(serverError(error));
-                            });
+                            .then((data: ResponseX) => sendResponse(reply, data))
+                            .catch((error) => reply.status(500).send(serverError(error)));
                     } catch (error) {
-                        replay.status(500).send(serverError(error));
+                        reply.status(500).send(serverError(error));
                     }
                 },
             });
         });
     });
+};
+
+const sendResponse = (reply: ReplayX, response: ResponseX) => {
+    const statusCode = response.statusType === 'success' ? 200 : response.statusType === 'error' ? 400 : response.statusCode > 100 && response.statusCode < 1000 ? response.statusCode : 200;
+    return reply.code(statusCode).send(response);
 };
 
 export { attachRouter };
