@@ -1,13 +1,12 @@
-import path from 'path';
 import { FastifyInstance as AppInstance } from 'fastify';
 import fastifyCors from '@fastify/cors';
 import fastifyStatic from '@fastify/static';
 import { fastifyCookie } from '@fastify/cookie';
 
 import { appControllers } from '~/controllers';
+import { attachRouter } from './attachRouter';
 import { ReplayX, RequestX, exception, notFound, take } from '~/utils';
 import { appConfig } from '~/config';
-import { attachRouter } from './attachRouter';
 
 export class App {
     private app: AppInstance;

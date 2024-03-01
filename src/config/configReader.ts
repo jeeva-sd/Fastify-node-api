@@ -1,8 +1,20 @@
+import path from 'path';
 import { readEnv } from '~/utils';
 import { AppConfig } from './types';
-import path from 'path';
 
 export const appConfig: AppConfig = {
+    server: {
+        caseSensitive: readEnv('SERVER_CASE_SENSITIVE', false),
+        ignoreDuplicateSlashes: readEnv('SERVER_IGNORE_DUPLICATE_SLASHES', true),
+        onProtoPoisoning: readEnv('SERVER_ON_PROTO_POISONING', 'remove'),
+        onConstructorPoisoning: readEnv('SERVER_ON_CONSTRUCTOR_POISONING', 'remove'),
+        logger: {
+            level: readEnv('SERVER_LOGGER_LEVEL', 'info'),
+            transport: {
+                target: readEnv('SERVER_LOGGER_TRANSPORT_TARGET', 'pino-pretty'),
+            },
+        },
+    },
     app: {
         version: readEnv('VERSION', 'v1.0.0'),
         name: readEnv('APP_NAME', 'Node-API'),

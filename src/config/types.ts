@@ -1,4 +1,4 @@
-import { CorsConfig, CookieConfig, StaticPathConfig } from '~/utils';
+import { CorsConfig, CookieConfig, StaticPathConfig, ServerConfig } from '~/utils';
 
 export interface Environment {
   [key: string]: string | undefined;
@@ -62,6 +62,7 @@ export interface StatusConfig {
   completed: number;
 }
 export interface AppConfig {
+  server: ServerConfig;
   app: AppInfo;
   jwt: JwtConfig;
   crypto: CryptoConfig;

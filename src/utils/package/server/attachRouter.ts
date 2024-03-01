@@ -1,7 +1,6 @@
 import { FastifyInstance as AppInstance } from 'fastify';
-import { GetMetaData, serverError } from '../ioConfig';
+import { GetMetaData, serverError, ReplayX, RequestX, ResponseX } from '~/utils';
 import { validateParams } from '~/middlewares';
-import { ReplayX, RequestX, ResponseX } from '../types';
 
 const attachRouter = (app: AppInstance, appRoutes: any[], prefix?: string) => {
     appRoutes.forEach((Controller) => {

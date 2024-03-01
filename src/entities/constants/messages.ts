@@ -45,6 +45,7 @@ export const messageObj: { [key: number]: Message; } = {
     1003: { message: 'Validation Errors', status: MessageStatus.error },
     1004: { message: 'Unexpected error', status: MessageStatus.error },
     1005: { message: 'Something went wrong', status: MessageStatus.error },
+    1006: { message: 'Request timed out', status: MessageStatus.error },
 
     // Auth
     1050: { message: 'Invalid credentials', status: MessageStatus.failure },

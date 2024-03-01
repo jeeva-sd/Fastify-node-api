@@ -1,5 +1,5 @@
 import http, { Server as HttpServer, IncomingMessage, ServerResponse } from 'http';
-import fastify, { FastifyInstance as AppInstance, FastifyServerOptions } from 'fastify';
+import fastify, { FastifyInstance as AppInstance } from 'fastify';
 import { App } from './app';
 import { appConfig } from '~/config';
 
@@ -8,12 +8,12 @@ export class Server {
     private server: HttpServer;
     private instance: AppInstance<HttpServer>;
 
-    constructor(config: FastifyServerOptions) {
+    constructor() {
         this.port = appConfig.app.port;
 
         this.instance = fastify({
             serverFactory: this.serverFactory.bind(this),
-            ...config
+            ...appConfig.server
         });
     }
 
