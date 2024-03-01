@@ -1,3 +1,6 @@
+import { FastifyCookieOptions } from '@fastify/cookie';
+import { FastifyCorsOptions } from '@fastify/cors';
+import { FastifyStaticOptions } from '@fastify/static';
 import { FastifyRequest, FastifyReply } from 'fastify';
 
 export interface RequestX extends FastifyRequest {
@@ -15,3 +18,7 @@ export interface ResponseX {
 }
 
 export interface ReplayX extends FastifyReply, ResponseX { }
+
+export interface CorsConfig extends FastifyCorsOptions { }
+export interface CookieConfig extends FastifyCookieOptions { }
+export interface StaticPathConfig extends FastifyStaticOptions { }

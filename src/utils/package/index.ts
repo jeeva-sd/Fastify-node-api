@@ -1,4 +1,4 @@
 export * from './server';
-export * from './io';
+export * from './ioConfig';
 export * from './guard';
 export * from './types';

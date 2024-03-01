@@ -1,5 +1,6 @@
 import { readEnv } from '~/utils';
 import { AppConfig } from './types';
+import path from 'path';
 
 export const appConfig: AppConfig = {
     app: {
@@ -7,6 +8,25 @@ export const appConfig: AppConfig = {
         name: readEnv('APP_NAME', 'Node-API'),
         port: readEnv('PORT', 1314),
         environment: readEnv('NODE_ENV', 'dev'),
+    },
+    cookie: {
+        secret: readEnv('COOKIE_SECRET', 'cookie-secret'),
+        parseOptions: {
+            secure: readEnv('COOKIE_PARSE_OPTIONS', false),
+            expires: readEnv('COOKIE_PARSE_OPTIONS', 60 * 60 * 24 * 7),
+            httpOnly: readEnv('COOKIE_PARSE_OPTIONS', false)
+        }
+    },
+    cors: {
+        origin: readEnv('CORS_ORIGIN', ['http://localhost:3005']),
+        credentials: readEnv('CORS_CREDENTIALS', true),
+        preflight: readEnv('CORS_PREFLIGHT', true),
+        preflightContinue: readEnv('CORS_PREFLIGHT_CONTINUE', false),
+        optionsSuccessStatus: readEnv('CORS_OPTIONS_SUCCESS_STATUS', 204),
+    },
+    static: {
+        root: path.join(__dirname, readEnv('STATIC_ROOT_PATH', '../../public')),
+        prefix: readEnv('STATIC_PREFIX', '/public/'),
     },
     jwt: {
         accessSecretKey: readEnv('JWT_ACCESS_SECRET_KEY', 'default-access-secret'),
@@ -28,18 +48,7 @@ export const appConfig: AppConfig = {
         password: readEnv('DB_PASSWORD', 'default-password'),
         dbName: readEnv('DB_NAME', 'default-db-name'),
         connectionLimit: readEnv('DB_CONNECTION_LIMIT', 20),
-        isMultipleStatement: readEnv('DB_IS_MULTIPLE_STATEMENT', true),
-        shouldWaitForConnections: readEnv('DB_SHOULD_WAIT_FOR_CONNECTIONS', false),
         url: readEnv('DATABASE_URL', 'mysql://root:QwertyuI@localhost:3306/demo'),
-    },
-    general: {
-        allowedDomains: readEnv('ALLOWED_DOMAINS', 'http://localhost:5173'),
-    },
-    cookie: {
-        httpOnly: readEnv('COOKIE_HTTP_ONLY', false),
-        secure: readEnv('SECURE_COOKIE', false),
-        expire: readEnv('COOKIE_MAX_AGE', 60 * 60 * 24 * 7),
-        sameSite: readEnv('SAME_SITE_COOKIE', 'none'),
     },
     validation: {
         abortEarly: readEnv('ABORT_EARLY', true)

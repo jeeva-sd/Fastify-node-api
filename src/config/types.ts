@@ -1,3 +1,5 @@
+import { CorsConfig, CookieConfig, StaticPathConfig } from '~/utils';
+
 export interface Environment {
   [key: string]: string | undefined;
 }
@@ -31,8 +33,6 @@ export interface DbConfig {
   password: string;
   dbName: string;
   connectionLimit: number;
-  isMultipleStatement: boolean;
-  shouldWaitForConnections: boolean;
   url: string;
 }
 
@@ -42,13 +42,6 @@ export interface GeneralConfig {
 
 export interface IValidationConfig {
   abortEarly: boolean;
-}
-
-export interface CookieConfig {
-  httpOnly: boolean;
-  secure: boolean;
-  expire: number;
-  sameSite: boolean;
 }
 
 export interface RoleConfig {
@@ -73,9 +66,10 @@ export interface AppConfig {
   jwt: JwtConfig;
   crypto: CryptoConfig;
   database: DbConfig;
-  general: GeneralConfig;
   validation: IValidationConfig;
   cookie: CookieConfig;
   role: RoleConfig;
   status: StatusConfig;
+  cors: CorsConfig;
+  static: StaticPathConfig;
 }

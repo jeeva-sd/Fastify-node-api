@@ -1,5 +1,5 @@
 import { FastifyInstance as AppInstance } from 'fastify';
-import { GetMetaData, serverError } from '../io';
+import { GetMetaData, serverError } from '../ioConfig';
 import { validateParams } from '~/middlewares';
 import { ReplayX, RequestX, ResponseX } from '../types';
 
