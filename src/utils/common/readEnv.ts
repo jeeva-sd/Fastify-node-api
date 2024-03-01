@@ -3,7 +3,6 @@ import dotenv from 'dotenv';
 import { Environment } from '~/config';
 
 // Load environment variables from the corresponding .env file
-const envs: Environment = { ...process?.env || {} };
 const environment = process?.env?.NODE_ENV ? `.${process.env.NODE_ENV.trim()}.env` : '.env';
 
 // Check if the file exists
@@ -12,6 +11,8 @@ if (fs.existsSync(environment)) {
     dotenv.config({ path: environment });
 }
 else console.log(`"${environment}" not found. Loading fallback...`);
+
+const envs: Environment = { ...process?.env || {} };
 
 // Helper function to parse and return the value with fallback
 const readEnv = (name: string, fallback: any) => {
