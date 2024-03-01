@@ -2,7 +2,7 @@
   "name": "node-api",
   "version": "1.0.0",
   "description": "A Node.js API",
-  "main": "server.ts",
+  "main": "./src/utils/package/server/index.ts",
   "scripts": {
     "lint": "eslint .",
     "format": "eslint --fix .",
