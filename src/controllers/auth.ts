@@ -1,6 +1,6 @@
 import { ResponseX, Controller, Sanitize, Get, Apply } from '~/utils';
 import { AuthCore } from '~/core';
-import { registerSchema } from '~/entities';
+import { registerPayload } from '~/entities';
 import { dummyMiddleware } from '~/middlewares';
 
 @Controller('/auth')
@@ -8,7 +8,7 @@ class AuthController {
     private core: AuthCore;
 
     @Get('/register')
-    @Sanitize(registerSchema)
+    @Sanitize(registerPayload)
     @Apply(dummyMiddleware)
     public register(): Promise<ResponseX> {
         return this.authCore().loginUser();
