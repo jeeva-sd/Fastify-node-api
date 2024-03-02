@@ -11,7 +11,7 @@ export function CoreGuard(_target: Record<string, any>, propertyKey: string, des
         } catch (err) {
             const error = extractErrorMessage(err);
             console.error(`\nError in core at '${propertyKey}':\n${error}`);
-            return serverError({ error });
+            return serverError({ message: error, error: `Error at '${propertyKey}'` });
         }
     };
 

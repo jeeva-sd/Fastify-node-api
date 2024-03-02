@@ -3,6 +3,7 @@ import fastify, { FastifyInstance as AppInstance } from 'fastify';
 import { App } from './app';
 import { appConfig } from '~/config';
 import { Database } from '~/database';
+import { exceptionLog } from '~/utils';
 
 class Server {
     private port: number;
@@ -43,7 +44,7 @@ class Server {
     }
 
     private onError(error: NodeJS.ErrnoException): void {
-        if (error.syscall !== 'listen') throw error;
+        if (error.syscall !== 'listen') exceptionLog(error);
         const bind = typeof this.port === 'string' ? 'Pipe ' + this.port : 'Port ' + this.port;
 
         // handle specific listen errors with friendly messages

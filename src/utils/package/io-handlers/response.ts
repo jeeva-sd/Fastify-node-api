@@ -27,19 +27,12 @@ export const take = (code: number, res?: any, options?: any): ResponseX => {
 
 // successful operation
 export const success = (data?: any): ResponseX => {
-    return buildResponseX(1000, data);
+    return buildResponseX(200, data);
 };
 
 // exception
-export const exception = (error: string | any, data?: any): ResponseX => {
-    const message = extractErrorMessage(error);
-    console.error(message);
-    return buildResponseX(1004, data, { message });
-};
-
-// unauthorized request
-export const unauthorized = (error?: any): ResponseX => {
-    return buildResponseX(401, null, { error });
+export const exception = (error?: any, data?: any): ResponseX => {
+    return buildResponseX(1004, data, { message: error });
 };
 
 // forbidden request
@@ -56,8 +49,9 @@ export const clientError = (error?: any): ResponseX => {
 export const serverError = (errorObj?: any): ResponseX => {
     const error = errorObj?.error ?? null;
     const code = errorObj?.code ?? 500;
+    const message = errorObj?.message ?? null;
 
-    return buildResponseX(code, null, { error });
+    return buildResponseX(code, null, { error, message });
 };
 
 // not found
@@ -72,10 +66,10 @@ export const dataFound = (res: any): ResponseX => {
 };
 
 export const repoError = (response: Output): ResponseX => {
-    console.log(response);
-    const code = response?.code || 500;
+    const code = response?.code || 400;
     const error = response?.error || null;
-    return buildResponseX(code, null, { error });
+    const message = response?.message || null;
+    return buildResponseX(code, null, { error, message });
 };
 
 export const dataNotFound = (res: any = []): ResponseX => {

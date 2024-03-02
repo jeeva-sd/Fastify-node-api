@@ -21,6 +21,7 @@ export type Output<T = any> = {
     data?: T;
     error?: any;
     code?: number;
+    message?: string;
 };
 
 export type RouteMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
