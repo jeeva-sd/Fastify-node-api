@@ -2,6 +2,7 @@ import http, { Server as HttpServer, IncomingMessage, ServerResponse } from 'htt
 import fastify, { FastifyInstance as AppInstance } from 'fastify';
 import { App } from './app';
 import { appConfig } from '~/config';
+import { Database } from '~/database';
 
 class Server {
     private port: number;
@@ -60,7 +61,8 @@ class Server {
     }
 
     private async shutdown() {
-        console.info('Received termination signal. Closing server...');
+        Database.getInstance().closeConnections();
+        console.info('Closing server...');
 
         this.server.close((err) => {
             if (err) {
