@@ -5,7 +5,7 @@ import { fastifyCookie } from '@fastify/cookie';
 
 import { appControllers } from '~/controllers';
 import { attachRouter } from './attachRouter';
-import { ReplayX, RequestX, exception, notFound, take } from '~/utils';
+import { exception, notFound, take } from '~/utils';
 import { appConfig } from '~/config';
 
 export class App {
@@ -26,7 +26,7 @@ export class App {
     }
 
     private routeHandler(): void {
-        this.app.get('/', (_request: RequestX, reply: ReplayX) => {
+        this.app.get('/', (_request, reply) => {
             reply.send(take(200, {
                 name: appConfig.app.name,
                 environment: appConfig.app.environment
@@ -42,13 +42,14 @@ export class App {
 
     private errorHandler(): void {
         // Catch 404 and forward to error handler
-        this.app.setNotFoundHandler((req: RequestX, reply: ReplayX) => {
+        this.app.setNotFoundHandler((req, reply) => {
             reply.status(404).send(notFound(`${req.url} not found!`));
         });
 
         // Handle unexpected errors
-        this.app.setErrorHandler((err, _req: RequestX, reply: ReplayX) => {
-            reply.status(500).send(exception(err));
+        this.app.setErrorHandler((err, _req, reply) => {
+            reply.status(err.statusCode || 500).send(exception(err));
         });
+
     }
 }

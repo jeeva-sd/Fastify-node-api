@@ -56,11 +56,11 @@ export const appConfig: AppConfig = {
     database: {
         host: readEnv('DB_HOST', 'localhost'),
         port: readEnv('DB_PORT', 3306),
-        username: readEnv('DB_USERNAME', 'default-username'),
-        password: readEnv('DB_PASSWORD', 'default-password'),
-        dbName: readEnv('DB_NAME', 'default-db-name'),
+        username: readEnv('DB_USERNAME', 'root'),
+        password: readEnv('DB_PASSWORD', 'QwertyuI'),
+        dbName: readEnv('DB_NAME', 'drizzle'),
         connectionLimit: readEnv('DB_CONNECTION_LIMIT', 20),
-        url: readEnv('DATABASE_URL', 'mysql://root:QwertyuI@localhost:3306/demo'),
+        url: readEnv('DATABASE_URL', 'mysql://root:QwertyuI@localhost:3306/drizzle'),
     },
     validation: {
         abortEarly: readEnv('ABORT_EARLY', true)

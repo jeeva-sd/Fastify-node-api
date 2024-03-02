@@ -3,7 +3,7 @@ import { GetMetaData, serverError, ReplayX, RequestX, ResponseX } from '~/utils'
 import { validateParams } from '~/middlewares';
 
 const attachRouter = (app: AppInstance, appRoutes: any[], prefix?: string) => {
-    appRoutes.forEach((Controller) => {
+    appRoutes?.forEach((Controller) => {
         const controllerInstance = new Controller();
         const metaData = GetMetaData(controllerInstance);
 
@@ -18,11 +18,11 @@ const attachRouter = (app: AppInstance, appRoutes: any[], prefix?: string) => {
                 method: routeMethod,
                 url: urlPrefix + controllerPath + route.url,
                 preHandler: [...controllerMiddleware, ...routeMiddleware, ...paramValidationMiddleware],
-                async handler(request: RequestX, reply: ReplayX) {
+                async handler(request, reply): Promise<void> {
                     try {
                         const response = await controllerInstance[methodName](request, reply);
 
-                        if (Object.prototype.hasOwnProperty.call(route, 'customResponse')) return null;
+                        if (Object.prototype.hasOwnProperty.call(route, 'customResponse')) return;
                         if (!(response instanceof Promise)) {
                             return sendResponse(reply, response);
                         }
@@ -33,13 +33,13 @@ const attachRouter = (app: AppInstance, appRoutes: any[], prefix?: string) => {
                     } catch (error) {
                         reply.status(500).send(serverError(error));
                     }
-                },
+                }
             });
         });
     });
 };
 
-const sendResponse = (reply: ReplayX, response: ResponseX) => {
+const sendResponse = (reply: any, response: any) => {
     const statusCode = response.statusType === 'success' ? 200 : response.statusType === 'error' ? 400 : response.statusCode > 100 && response.statusCode < 1000 ? response.statusCode : 200;
     return reply.code(statusCode).send(response);
 };

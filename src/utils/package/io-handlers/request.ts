@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { MetaData, MiddlewareFunction, RouteMethod, TargetData } from './types';
+import { MetaData, MethodDecoratorType, MiddlewareFunction, RouteMethod, TargetData } from './types';
 
 // App meta-data
 export function GetMetaData(target: TargetData): MetaData {
@@ -31,10 +31,10 @@ export const Controller = (controller: string, middleware?: MiddlewareFunction[]
 };
 
 // Decorator for setting routes
-export const setRoutes = (method: RouteMethod, path: string): MethodDecorator => {
-    return (target: Record<string, any>, methodName: string, descriptor: PropertyDescriptor) => {
+export const setRoutes = (method: RouteMethod, path: string): MethodDecoratorType => {
+    return (target: Record<string, any>, methodName: string | symbol, descriptor: PropertyDescriptor) => {
         const meta = GetMetaData(target);
-        meta.routes[methodName] = { ...meta.routes[methodName], method, url: path };
+        meta.routes[methodName as string] = { ...meta.routes[methodName as string], method, url: path };
         return descriptor;
     };
 };

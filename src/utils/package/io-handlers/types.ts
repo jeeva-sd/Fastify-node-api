@@ -2,6 +2,8 @@ import { RequestX } from '~/utils';
 
 export type MiddlewareFunction = (req: RequestX, res: Response) => void;
 
+export type MethodDecoratorType = (target: Record<string, any>, methodName: string | symbol, descriptor: PropertyDescriptor) => PropertyDescriptor;
+
 export interface TargetData {
     meta_data?: MetaData;
 }
