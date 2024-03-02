@@ -5,7 +5,12 @@ import { appConfig } from "~/config";
 const { host, username, port, password, dbName, connectionLimit, url } = appConfig.database;
 
 const poolConnection = mysql.createPool({
-    uri: url
+    host: host,
+    port: port,
+    user: username,
+    password: password,
+    database: dbName,
+    connectionLimit: connectionLimit,
 });
 
-const db = drizzle(poolConnection);
+export const db = drizzle(poolConnection);

@@ -1,10 +1,12 @@
 import { CoreGuard, ResponseX, take } from '~/utils';
+import { db, users } from '~/database';
 
 class AuthCore {
 
     @CoreGuard
     public async loginUser(): Promise<ResponseX> {
-        return take(200);
+        const user = await db.select().from(users);
+        return take(200, user);
     }
 }
 
