@@ -2,14 +2,12 @@
   "name": "node-api",
   "version": "1.0.0",
   "description": "A Node.js API",
-  "main": "./src/utils/package/server/index.ts",
   "scripts": {
     "lint": "eslint .",
     "format": "eslint --fix .",
-    "dev": "cross-env NODE_ENV=dev nodemon --signal SIGHUP -r tsconfig-paths/register src/utils/package/server/index.ts",
+    "dev": "cross-env NODE_ENV=dev nodemon --signal SIGHUP -r tsconfig-paths/register src/utils/package/server/server.ts",
     "build": "tsc",
-    "preprod": "tsc",
-    "prod": "cross-env NODE_ENV=prod ts-node -r tsconfig-paths/register dist/server.js"
+    "prod": "tsc && cross-env NODE_ENV=prod ts-node -r tsconfig-paths/register dist/utils/package/server/server.js"
   },
   "keywords": [],
   "author": "github.com/jeeva-sd",

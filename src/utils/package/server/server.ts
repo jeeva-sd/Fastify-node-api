@@ -3,14 +3,13 @@ import fastify, { FastifyInstance as AppInstance } from 'fastify';
 import { App } from './app';
 import { appConfig } from '~/config';
 
-export class Server {
+class Server {
     private port: number;
     private server: HttpServer;
     private instance: AppInstance<HttpServer>;
 
     constructor() {
         this.port = appConfig.app.port;
-
         this.instance = fastify({
             serverFactory: this.serverFactory.bind(this),
             ...appConfig.server
@@ -25,10 +24,11 @@ export class Server {
     public run() {
         this.instance.listen({ port: this.port });
         this.server.on('error', this.onError.bind(this));
-        this.server.on('listening', this.onListening.bind(this));
 
         // Pass app instance
         new App(this.instance);
+
+        this.server.on('listening', this.onListening.bind(this));
 
         // Graceful shutdown on process termination
         process.on('SIGTERM', () => this.shutdown());
@@ -73,3 +73,6 @@ export class Server {
         });
     }
 }
+
+const server = new Server();
+server.run();
