@@ -1,6 +1,7 @@
 import { drizzle } from "drizzle-orm/mysql2";
 import mysql from "mysql2/promise";
 import { appConfig } from "~/config";
+import * as dbSchema from './schema';
 
 export class Database {
     private static instance: Database;
@@ -26,7 +27,7 @@ export class Database {
     }
 
     public getDB() {
-        return drizzle(this.poolConnection);
+        return drizzle(this.poolConnection, { schema: dbSchema, mode: "default" });
     }
 
     public async closeConnections(): Promise<void> {
