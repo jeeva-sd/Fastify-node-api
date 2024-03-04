@@ -3,13 +3,16 @@
   "version": "1.0.0",
   "description": "A Node.js API",
   "scripts": {
+    "build": "tsc",
     "lint": "eslint .",
     "format": "eslint --fix .",
+    "drop": "drizzle-kit drop",
+    "sql-studio": "drizzle-kit studio",
+    "interospect": "drizzle-kit introspect:mysql",
+    "check": "cross-env NODE_ENV=dev drizzle-kit check:mysql",
     "generate": "cross-env NODE_ENV=dev drizzle-kit generate:mysql",
     "migrate": "cross-env NODE_ENV=dev ts-node -r tsconfig-paths/register ./src/database/migrate.ts",
-    "sql-studio": "drizzle-kit studio",
     "dev": "cross-env NODE_ENV=dev nodemon --signal SIGHUP -r tsconfig-paths/register src/utils/package/server/server.ts",
-    "build": "tsc",
     "prod": "tsc && cross-env NODE_ENV=prod ts-node -r tsconfig-paths/register dist/utils/package/server/server.js"
   },
   "keywords": [],
