@@ -9,9 +9,9 @@
     "db:drop": "drizzle-kit drop",
     "db:studio": "drizzle-kit studio",
     "db:introspect": "drizzle-kit introspect:mysql",
-    "db:check": "cross-env NODE_ENV=dev drizzle-kit check:mysql",
-    "db:generate": "cross-env NODE_ENV=dev drizzle-kit generate:mysql",
-    "db:migrate": "cross-env NODE_ENV=dev ts-node -r tsconfig-paths/register ./src/database/migrate.ts",
+    "db:check": "drizzle-kit check:mysql",
+    "db:generate": "drizzle-kit generate:mysql",
+    "db:migrate": "ts-node -r tsconfig-paths/register ./src/database/migrate.ts",
     "dev": "cross-env TS_NODE_BASEURL=./src NODE_ENV=dev nodemon --signal SIGHUP -r tsconfig-paths/register src/utils/package/server/server.ts",
     "prod": "tsc && cross-env TS_NODE_BASEURL=./dist NODE_ENV=prod node -r tsconfig-paths/register dist/utils/package/server/server.js"
   },
