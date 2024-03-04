@@ -1,5 +1,3 @@
-if (!process.env.TS_NODE) require('module-alias/register');
-
 import http, { Server as HttpServer, IncomingMessage, ServerResponse } from 'http';
 import fastify, { FastifyInstance as AppInstance } from 'fastify';
 import { App } from './app';
