@@ -6,6 +6,11 @@ export const users = mysqlTable('users', {
     id: bigint('id', { mode: 'number' }).primaryKey().autoincrement(),
     fullName: varchar('full_name', { length: 256 }),
     email: varchar('email', { length: 256 }).notNull().default('hello@example.com'),
+    phone: varchar('phone', { length: 256 }).notNull().default('1234567890'),
+    password: varchar('password', { length: 256 }).notNull().default('<PASSWORD>'),
+    roleId: int('role_id').notNull().default(1),
+    orgId: int('org_id').notNull().default(1),
+    branchId: int('branch_id').notNull().default(1),
 }, (users) => ({
     nameIdx: index('name_idx').on(users.fullName),
 }));
