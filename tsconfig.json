@@ -10,6 +10,7 @@
 		"experimentalDecorators": true,
 		"emitDecoratorMetadata": true,
 		"strictPropertyInitialization": false,
+		"skipLibCheck": true,
 		"resolveJsonModule": true,
 		"baseUrl": "./src",
 		"outDir": "./dist",
