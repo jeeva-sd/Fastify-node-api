@@ -12,8 +12,8 @@
     "check": "cross-env NODE_ENV=dev drizzle-kit check:mysql",
     "generate": "cross-env NODE_ENV=dev drizzle-kit generate:mysql",
     "migrate": "cross-env NODE_ENV=dev ts-node -r tsconfig-paths/register ./src/database/migrate.ts",
-    "dev": "cross-env NODE_ENV=dev nodemon --signal SIGHUP -r tsconfig-paths/register src/utils/package/server/server.ts",
-    "prod": "tsc && cross-env NODE_ENV=prod node -r tsconfig-paths/register dist/utils/package/server/server.js"
+    "dev": "cross-env NODE_ENV=dev TS_NODE=true nodemon --signal SIGHUP -r tsconfig-paths/register src/utils/package/server/server.ts",
+    "prod": "tsc && cross-env NODE_ENV=prod node dist/utils/package/server/server.js"
   },
   "keywords": [],
   "author": "github.com/jeeva-sd",
@@ -40,6 +40,7 @@
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
     "@types/jsonwebtoken": "^9.0.5",
+    "@types/module-alias": "^2.0.4",
     "@types/node": "^20.10.2",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",
