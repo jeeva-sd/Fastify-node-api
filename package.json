@@ -13,13 +13,16 @@
     "generate": "cross-env NODE_ENV=dev drizzle-kit generate:mysql",
     "migrate": "cross-env NODE_ENV=dev ts-node -r tsconfig-paths/register ./src/database/migrate.ts",
     "dev": "cross-env NODE_ENV=dev nodemon --signal SIGHUP -r tsconfig-paths/register src/utils/package/server/server.ts",
-    "prod": "tsc && cross-env NODE_ENV=prod ts-node -r tsconfig-paths/register dist/utils/package/server/server.js"
+    "prod": "tsc && cross-env NODE_ENV=prod node -r tsconfig-paths/register dist/utils/package/server/server.js"
   },
   "keywords": [],
   "author": "github.com/jeeva-sd",
   "license": "ISC",
   "engines": {
     "node": ">= 18.0.0"
+  },
+  "_moduleAliases": {
+    "~": "./dist"
   },
   "dependencies": {
     "@fastify/cookie": "^9.3.1",
@@ -44,6 +47,7 @@
     "dotenv-cli": "^7.3.0",
     "drizzle-kit": "^0.20.14",
     "eslint": "^8.56.0",
+    "module-alias": "^2.2.3",
     "nodemon": "^3.0.2",
     "pino-pretty": "^10.3.1",
     "ts-node": "^10.9.1",
