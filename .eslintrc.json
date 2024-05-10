@@ -30,7 +30,7 @@
         "key-spacing": "warn",                      // spacing around object keys
         "no-console": ["warn", { "allow": ["warn", "error"] }]
     },
-    "ignorePatterns": ["node_modules/", "dist/", "utils", "database", "messages.ts", "server.ts", "axios", "helper.ts"],
+    "ignorePatterns": ["node_modules/", "dist/", "utils", "database", "shared", "messages.ts", "server", "axios", "helper.ts"],
     "overrides": [
       {
         "files": [ "**/*.ts" ],

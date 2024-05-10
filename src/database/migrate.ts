@@ -2,24 +2,21 @@ import mysql from 'mysql2';
 import { migrate } from 'drizzle-orm/mysql2/migrator';
 import { drizzle } from 'drizzle-orm/mysql2';
 import { appConfig } from '../config';
-import { extractErrorMessage } from '../utils';
+import { extractError } from '../utils';
 
 (async () => {
     let connection = null;
 
     try {
-        connection = mysql.createConnection({
-            host: appConfig.database.host,
-            user: appConfig.database.username,
-            password: appConfig.database.password,
-            database: appConfig.database.dbName
-        });
+        const { host, user, port, password, database } = appConfig.database;
+        connection = mysql.createPool({ host, user, port, password, database, connectionLimit: 1 });
 
         const db = drizzle(connection);
-        await migrate(db, { migrationsFolder: './src/database/migrations' });
+        await migrate(db, { migrationsFolder: './migrations' });
+        console.log('Migration done!');
     }
     catch (error) {
-        console.error('Migration failed:', extractErrorMessage(error));
+        console.error('Migration failed:', extractError(error));
     }
     finally {
         connection?.end();

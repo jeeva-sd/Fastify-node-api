@@ -1,0 +1,38 @@
+{
+    "role": {
+        "superAdmin": 1,
+        "admin": 2,
+        "moderator": 3,
+        "editor": 4
+    },
+    "status": {
+        "active": 1,
+        "inactive": -1
+    },
+    "deviceOs": [
+        "Android",
+        "iOS",
+        "Windows",
+        "Linux",
+        "macOS",
+        "Other"
+    ],
+    "deviceType": [
+        "Phone",
+        "iPad",
+        "Tablet",
+        "Desktop"
+    ],
+    "gender": [
+        "Male",
+        "Female",
+        "Other"
+    ],
+    "ageGroup":  [
+        "Under 18",
+        "18-25",
+        "26-40",
+        "41-60",
+        "Over 60"
+    ]
+}

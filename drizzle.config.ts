@@ -3,7 +3,7 @@ import { appConfig } from './src/config';
 
 export default {
     schema: './src/database/schema.ts',
-    out: './src/database/migrations',
+    out: './migrations',
     driver: 'mysql2',
     dbCredentials: {
         uri: appConfig.database.url

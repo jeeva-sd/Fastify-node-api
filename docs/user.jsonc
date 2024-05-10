@@ -1,0 +1,115 @@
+[
+    {
+        "title": "User List API",
+        "endpoint": "/user",
+        "method": "GET",
+        "permission": ["super admin", "admin"],
+        "version": 1,
+        "requestPayload": {
+            "page": "number", // default is 1
+            "limit": "number", // default is 10 & maximum is 100
+            "sortBy": "string", // default is "createdAt" & oneOf ['createdAt', 'name', 'phone', 'email', 'roleId']
+            "sortType": "string", // default is "asc" & oneOf ['asc', 'desc']
+            "searchTerm": "string" // default is ''
+        },
+        "requiredKeys": []
+    },
+    {
+        "title": "Create user API",
+        "endpoint": "/user",
+        "method": "POST",
+        "permission": ["super admin", "admin"],
+        "version": 1,
+        "requestPayload": {
+            "name": "string",
+            "email": "string",
+            "roleId": {
+                "datatype": "enum",
+                "values": [1, 2, 3, 4] // 1 = super admin, 2 = admin, 3 = moderator, 4 = editor
+            },
+            "password": "string",
+            "phone": "string",
+            "deviceId": "string",
+            "location": {
+                "latitude": "number",
+                "longitude": "number"
+            },
+            "deviceOS": {
+                "datatype": "enum",
+                "values": ["Android", "iOS", "Windows", "Linux", "macOS", "Other"] // oneOf values, EX: deviceOS: "Windows"
+            },
+            "deviceType": {
+                "datatype": "enum",
+                "values": ["Phone", "iPad", "Tablet", "Desktop"] // oneOf values, EX: deviceType: "Phone"
+            },
+            "gender": {
+                "datatype": "enum",
+                "values": ["Male", "Female", "Other"] // oneOf values, EX: gender: "Male"
+            },
+            "ageGroup": {
+                "datatype": "enum",
+                "values": ["Under 18", "18-25", "26-40", "41-60", "Over 60"] // oneOf values, EX: ageGroup: "Under 18"
+            }
+        },
+        "requiredKeys": [
+            "name",
+            "email",
+            "roleId",
+            "password",
+            "phone",
+            "gender",
+            "ageGroup"
+        ]
+    },
+    {
+        "title": "Update user API",
+        "endpoint": "/user",
+        "method": "PATCH",
+        "permission": ["super admin", "admin"],
+        "version": 1,
+        "requestPayload": {
+            "id": "number", // userId
+            "name": "string",
+            "email": "string",
+            "roleId": {
+                "datatype": "enum",
+                "values": [1, 2, 3, 4] // 1 = super admin, 2 = admin, 3 = moderator, 4 = editor
+            },
+            "phone": "string",
+            "deviceId": "string",
+            "location": {
+                "latitude": "number",
+                "longitude": "number"
+            },
+            "deviceOS": {
+                "datatype": "enum",
+                "values": ["Android", "iOS", "Windows", "Linux", "macOS", "Other"] // oneOf values, EX: deviceOS: "Windows"
+            },
+            "deviceType": {
+                "datatype": "enum",
+                "values": ["Phone", "iPad", "Tablet", "Desktop"] // oneOf values, EX: deviceType: "Phone"
+            },
+            "gender": {
+                "datatype": "enum",
+                "values": ["Male", "Female", "Other"] // oneOf values, EX: gender: "Male"
+            },
+            "ageGroup": {
+                "datatype": "enum",
+                "values": ["Under 18", "18-25", "26-40", "41-60", "Over 60"] // oneOf values, EX: ageGroup: "Under 18"
+            }
+        },
+        "requiredKeys": [
+            "id"
+        ]
+    },
+    {
+        "title": "Delete user API",
+        "endpoint": "/user/:id/delete",
+        "method": "DELETE",
+        "permission": ["super admin", "admin"],
+        "version": 1,
+        "requiredKeys": [
+            "id"
+        ]
+    }
+]

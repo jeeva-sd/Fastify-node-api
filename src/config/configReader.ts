@@ -9,6 +9,7 @@ export const appConfig: AppConfig = {
         onProtoPoisoning: readEnv('SERVER_ON_PROTO_POISONING', 'remove'),
         onConstructorPoisoning: readEnv('SERVER_ON_CONSTRUCTOR_POISONING', 'remove'),
         logger: {
+            enabled: readEnv('SERVER_LOGGER_ENABLED', false),
             level: readEnv('SERVER_LOGGER_LEVEL', 'info'),
             transport: {
                 target: readEnv('SERVER_LOGGER_TRANSPORT_TARGET', 'pino-pretty'),
@@ -16,21 +17,13 @@ export const appConfig: AppConfig = {
         },
     },
     app: {
-        version: readEnv('VERSION', 'v1.0.0'),
+        version: readEnv('APP_VERSION', 'v1.0.0'),
         name: readEnv('APP_NAME', 'Node-API'),
-        port: readEnv('PORT', 1314),
+        port: readEnv('APP_PORT', 1314),
         environment: readEnv('NODE_ENV', 'dev'),
     },
-    cookie: {
-        secret: readEnv('COOKIE_SECRET', 'cookie-secret'),
-        parseOptions: {
-            secure: readEnv('COOKIE_PARSE_OPTIONS', false),
-            expires: readEnv('COOKIE_PARSE_OPTIONS', 60 * 60 * 24 * 7),
-            httpOnly: readEnv('COOKIE_PARSE_OPTIONS', false)
-        }
-    },
     cors: {
-        origin: readEnv('CORS_ORIGIN', ['http://localhost:3005']),
+        origin: readEnv('CORS_ORIGIN', '*'),
         credentials: readEnv('CORS_CREDENTIALS', true),
         preflight: readEnv('CORS_PREFLIGHT', true),
         preflightContinue: readEnv('CORS_PREFLIGHT_CONTINUE', false),
@@ -40,45 +33,47 @@ export const appConfig: AppConfig = {
         root: path.join(__dirname, readEnv('STATIC_ROOT_PATH', '../../public')),
         prefix: readEnv('STATIC_PREFIX', '/public/'),
     },
+    uploads: {
+        limits: {
+            fieldNameSize: readEnv('UPLOADS_LIMIT_FIELD_NAME_SIZE', 100), // Max field name size in bytes
+            fieldSize: readEnv('UPLOADS_LIMIT_FIELD_SIZE', 1024 * 1024), // Max field value size in bytes
+            fields: readEnv('UPLOADS_LIMIT_FIELDS', 10), // Max number of non-file fields
+            fileSize: readEnv('UPLOADS_LIMIT_FIELD_SIZE', 1024 * 1024 * 10), // Max file size in bytes (10MB)
+            files: readEnv('UPLOADS_LIMIT_FILES', 1), // Max number of file fields
+            headerPairs: readEnv('UPLOADS_LIMIT_HEADER_PAIRS', 200) // Max number of header key-value pairs
+        }
+    },
     jwt: {
         accessSecretKey: readEnv('JWT_ACCESS_SECRET_KEY', 'default-access-secret'),
         refreshSecretKey: readEnv('JWT_REFRESH_SECRET_KEY', 'default-refresh-secret'),
-        idSecretKey: readEnv('JWT_ID_SECRET_KEY', 'default-id-secret'),
-        accessExpirationDays: readEnv('JWT_ACCESS_EXPIRATION_DAYS', 7),
-        refreshExpirationDays: readEnv('JWT_REFRESH_EXPIRATION_DAYS', 30),
-        idExpirationDays: readEnv('JWT_ID_EXPIRATION_DAYS', 30),
+        accessExpirationDays: readEnv('JWT_ACCESS_EXPIRATION_DAYS', 1 * 24 * 60 * 60), // 1 day
+        refreshExpirationDays: readEnv('JWT_REFRESH_EXPIRATION_DAYS', 1 * 24 * 60 * 60), // 1 day
     },
-    crypto: {
-        algorithm: readEnv('CRYPTO_ALGORITHM', 'aes-256-ctr'),
-        secret: readEnv('CRYPTO_SECRET', 'default-crypto-secret'),
-        expirationDays: readEnv('CRYPTO_EXPIRATION_DAYS', 2),
+    bcrypt: {
+        saltRounds: readEnv('BCRYPT_SALT_ROUNDS', 10),
     },
     database: {
-        host: readEnv('DB_HOST', 'localhost'),
-        port: readEnv('DB_PORT', 3306),
-        username: readEnv('DB_USERNAME', 'root'),
-        password: readEnv('DB_PASSWORD', 'QwertyuI'),
-        dbName: readEnv('DB_NAME', 'drizzle'),
-        connectionLimit: readEnv('DB_CONNECTION_LIMIT', 20),
-        url: readEnv('DATABASE_URL', 'mysql://root:QwertyuI@localhost:3306/drizzle'),
+        host: readEnv('DATABASE_HOST', 'localhost'),
+        port: readEnv('DATABASE_PORT', 3306),
+        user: readEnv('DATABASE_USERNAME', 'root'),
+        password: readEnv('DATABASE_PASSWORD', 'QwertyuI'),
+        database: readEnv('DATABASE_NAME', 'drizzle'),
+        connectionLimit: readEnv('DATABASE_CONNECTION_LIMIT', 10),
+        url: readEnv('DATABASE_URL', 'mysql://root:QwertyuI@localhost:3306/worthReads'),
     },
     validation: {
-        abortEarly: readEnv('ABORT_EARLY', true)
+        abortEarly: readEnv('VALIDATION_ABORT_EARLY', true),
+        stripUnknown: readEnv('VALIDATION_STRIP_UNKNOWNS', true),
+        recursive: readEnv('VALIDATION_RECURSIVE', true)
     },
     role: {
-        developer: readEnv('DEVELOPER_ROLE', 1),
-        superAdmin: readEnv('SUPER_ADMIN_ROLE', 2),
-        admin: readEnv('ADMIN_ROLE', 3),
-        standardUser: readEnv('STANDARD_USER_ROLE', 4),
-        spectator: readEnv('SPECTATOR_ROLE', 5),
+        superAdmin: readEnv('ROLE_SUPER_ADMIN', 1),
+        admin: readEnv('ROLE_ADMIN', 2),
+        moderator: readEnv('ROLE_MODERATOR', 3),
+        editor: readEnv('ROLE_EDITOR', 4),
     },
     status: {
-        active: readEnv('ACTIVE_STATUS', 1),
-        banned: readEnv('BANNED_STATUS', 0),
-        hold: readEnv('HOLD_STATUS', -1),
-        inactive: readEnv('IN_ACTIVE_STATUS', -2),
-        issued: readEnv('ISSUED_STATUS', 100),
-        rejected: readEnv('REJECTED_STATUS', 101),
-        completed: readEnv('COMPLETED_STATUS', 101),
+        active: readEnv('STATUS_ACTIVE', 1),
+        inactive: readEnv('STATUS_INACTIVE', -1),
     },
 };

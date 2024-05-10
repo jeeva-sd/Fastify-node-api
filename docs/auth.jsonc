@@ -1,0 +1,30 @@
+[
+    {
+        "title": "Login API",
+        "endpoint": "/auth/login",
+        "method": "POST",
+        "version": 1,
+        "requestPayload": {
+            "email": "string",
+            "password": "string"
+        },
+        "requiredKeys": [
+            "email",
+            "password"
+        ]
+    },
+    {
+        "title": "Reset Password API",
+        "endpoint": "/auth/reset-password",
+        "method": "POST",
+        "version": 1,
+        "requestPayload": {
+            "password": "string",
+            "newPassword": "string"
+        },
+        "requiredKeys": [
+            "password",
+            "newPassword"
+        ]
+    }
+]

@@ -1,4 +1,4 @@
-import { CorsConfig, CookieConfig, StaticPathConfig, ServerConfig } from '~/utils';
+import { CorsConfig, StaticPathConfig, ServerConfig, ValidationConfig, FileUploadsConfig } from '~/server';
 
 export interface Environment {
   [key: string]: string | undefined;
@@ -14,24 +14,20 @@ export interface AppInfo {
 export interface JwtConfig {
   accessSecretKey: string;
   refreshSecretKey: string;
-  idSecretKey: string;
   accessExpirationDays: number;
   refreshExpirationDays: number;
-  idExpirationDays: number;
 }
 
-export interface CryptoConfig {
-  algorithm: string;
-  secret: string;
-  expirationDays: number;
+export interface BcryptConfig {
+  saltRounds: number;
 }
 
 export interface DbConfig {
   host: string;
   port: number;
-  username: string;
+  user: string;
   password: string;
-  dbName: string;
+  database: string;
   connectionLimit: number;
   url: string;
 }
@@ -40,37 +36,27 @@ export interface GeneralConfig {
   allowedDomains: string;
 }
 
-export interface IValidationConfig {
-  abortEarly: boolean;
-}
-
 export interface RoleConfig {
-  developer: number;
+  moderator: number;
   superAdmin: number;
   admin: number;
-  standardUser: number;
-  spectator: number;
+  editor: number;
 }
 
 export interface StatusConfig {
   active: number;
-  banned: number;
-  hold: number;
   inactive: number;
-  issued: number;
-  rejected: number;
-  completed: number;
 }
 export interface AppConfig {
   server: ServerConfig;
   app: AppInfo;
   jwt: JwtConfig;
-  crypto: CryptoConfig;
+  bcrypt: BcryptConfig;
   database: DbConfig;
-  validation: IValidationConfig;
-  cookie: CookieConfig;
+  validation: ValidationConfig;
   role: RoleConfig;
   status: StatusConfig;
   cors: CorsConfig;
   static: StaticPathConfig;
+  uploads: FileUploadsConfig
 }

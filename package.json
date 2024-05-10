@@ -1,19 +1,20 @@
 {
   "name": "node-api",
   "version": "1.0.0",
-  "description": "A Node.js API",
+  "description": "A well-organized and maintainable Node.js API",
   "scripts": {
     "build": "tsc",
     "lint": "eslint .",
     "format": "eslint --fix .",
-    "db:drop": "drizzle-kit drop",
-    "db:studio": "drizzle-kit studio",
-    "db:introspect": "drizzle-kit introspect:mysql",
-    "db:check": "drizzle-kit check:mysql",
-    "db:generate": "drizzle-kit generate:mysql",
-    "db:migrate": "ts-node -r tsconfig-paths/register ./src/database/migrate.ts",
-    "dev": "cross-env TS_NODE_BASEURL=./src NODE_ENV=dev nodemon --signal SIGHUP -r tsconfig-paths/register src/utils/package/server/server.ts",
-    "prod": "tsc && cross-env TS_NODE_BASEURL=./dist NODE_ENV=prod node -r tsconfig-paths/register dist/utils/package/server/server.js"
+    "db:drop": "cross-env NODE_ENV=dev drizzle-kit drop",
+    "db:studio": "cross-env NODE_ENV=dev drizzle-kit studio",
+    "db:check": "cross-env NODE_ENV=dev drizzle-kit check:mysql",
+    "db:generate": "cross-env NODE_ENV=dev drizzle-kit generate:mysql",
+    "db:introspect": "cross-env NODE_ENV=dev drizzle-kit introspect:mysql",
+    "db:migrate": "cross-env NODE_ENV=dev ts-node -r tsconfig-paths/register ./src/database/migrate.ts",
+    "db:seed": "cross-env NODE_ENV=dev ts-node -r tsconfig-paths/register src/database/seed.ts",
+    "dev": "cross-env TS_NODE_BASEURL=./src NODE_ENV=dev nodemon --signal SIGHUP -r tsconfig-paths/register src/server/index.ts",
+    "prod": "tsc && cross-env TS_NODE_BASEURL=./dist NODE_ENV=prod node -r tsconfig-paths/register dist/server/index.js"
   },
   "keywords": [],
   "author": "github.com/jeeva-sd",
@@ -22,19 +23,21 @@
     "node": ">= 18.0.0"
   },
   "dependencies": {
-    "@fastify/cookie": "^9.3.1",
     "@fastify/cors": "^9.0.1",
+    "@fastify/multipart": "^8.2.0",
     "@fastify/static": "^7.0.1",
     "axios": "^1.6.2",
+    "bcrypt": "^5.1.1",
     "dotenv": "^16.3.1",
     "drizzle-orm": "^0.29.4",
     "fastify": "^4.26.1",
+    "jsonwebtoken": "^9.0.2",
     "mysql2": "^3.9.2",
     "yup": "^1.3.3"
   },
   "devDependencies": {
     "@types/bcrypt": "^5.0.2",
-    "@types/jsonwebtoken": "^9.0.5",
+    "@types/jsonwebtoken": "^9.0.6",
     "@types/node": "^20.10.2",
     "@typescript-eslint/eslint-plugin": "^6.18.1",
     "@typescript-eslint/parser": "^6.18.1",

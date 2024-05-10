@@ -1,3 +1,5 @@
+import { randomUUID } from "crypto";
+
 export const log = (value: any): void => {
     console.log(value);
 };
@@ -35,7 +37,6 @@ export const groupBy = (key: string) => (array: any[]) => {
     return result;
 };
 
-
 export const objectById = (key: string) => (array: any[]) => {
     const result = array.reduce((obj: any, item: any) => {
         const value = item[key];
@@ -45,3 +46,11 @@ export const objectById = (key: string) => (array: any[]) => {
 
     return result;
 };
+
+export function generateFilename(originalFilename: string): string {
+    const uuid = randomUUID();
+    const extension = originalFilename.split('.').pop();
+    const timestamp = new Date().toISOString().replace(/[-:]/g, '').replace('T', '-').replace(/\..+/, '');
+
+    return `${timestamp}-${uuid}.${extension}`;
+}
