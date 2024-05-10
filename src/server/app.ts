@@ -5,7 +5,7 @@ import fastifyMultipart from '@fastify/multipart';
 
 import { attachRouter } from './attachRouter';
 import { appConfig } from '~/config';
-import { exception, notFound, take } from '~/api/shared';
+import { exception, notFound, take } from '~/modules/shared';
 
 export class App {
     private app: AppInstance;

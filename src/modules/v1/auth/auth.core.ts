@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { ResponseX } from '~/server';
-import { CoreGuard, repoError, take } from '~/api/shared';
+import { CoreGuard, repoError, take } from '~/modules/shared';
 import { appConfig } from '~/config';
 import { LoginPayload, ResetPasswordPayload, TokenData } from './entities/type';
 import { AuthRepository } from './auth.repository';

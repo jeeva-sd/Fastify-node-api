@@ -1,5 +1,5 @@
 import { RequestX, ResponseX } from '~/server';
-import { Controller, Sanitize, Post, Apply } from '~/api/shared';
+import { Controller, Sanitize, Post, Apply } from '~/modules/shared';
 import { loginPayload, resetPasswordPayload } from './entities/payload';
 import { tokenAuth } from './auth.middleware';
 import { AuthCore } from './auth.core';

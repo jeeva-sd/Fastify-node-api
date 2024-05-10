@@ -1,5 +1,5 @@
 import { FastifyInstance as AppInstance } from 'fastify';
-import { GetMetaData, serverError, validateParams } from '~/api/shared';
+import { GetMetaData, serverError, validateParams } from '~/modules/shared';
 import { ReplayX, ResponseX } from './types';
 import { appRoutes } from './routes';
 
@@ -18,7 +18,7 @@ const attachRouter = (app: AppInstance) => {
 
                 app.route({
                     method: routeMethod,
-                    url: ('/api/' + urlPrefix + '/' + controllerPath + '/' + route.url).replace(/\/+$/, ''),
+                    url: ('/modules/' + urlPrefix + '/' + controllerPath + '/' + route.url).replace(/\/+$/, ''),
                     preHandler: [...controllerMiddleware, ...routeMiddleware, ...paramValidationMiddleware],
                     async handler(request, reply): Promise<void> {
                         try {

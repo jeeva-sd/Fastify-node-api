@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import { ResponseX } from '~/server';
-import { CoreGuard, dataList, repoError, take } from '~/api/shared';
+import { CoreGuard, dataList, repoError, take } from '~/modules/shared';
 import { appConfig } from '~/config';
 import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './entities/type';
 import { UserRepository } from './user.repository';

@@ -1,6 +1,6 @@
 import { RequestX, ResponseX } from '~/server';
-import { Controller, Sanitize, Post, Patch, Apply, Get, Delete } from '~/api/shared';
-import { tokenAuth, adminAuth } from '~/api/v1/auth';
+import { Controller, Sanitize, Post, Patch, Apply, Get, Delete } from '~/modules/shared';
+import { tokenAuth, adminAuth } from '~/modules/v1/auth';
 import { createUserPayload, updateUserPayload, userListPayload } from './entities/payload';
 import { UserCore } from './user.core';
 

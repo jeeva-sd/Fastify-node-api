@@ -2,7 +2,7 @@ import { AnyColumn, and, asc, desc, eq, gt, like } from 'drizzle-orm';
 import { getAffectedRows, getInsertId, selectCount } from '~/utils';
 import { db, schema } from '~/database';
 import { appConfig } from '~/config';
-import { RepoGuard, Result } from '~/api/shared';
+import { RepoGuard, Result } from '~/modules/shared';
 import {
     CreateUserPayload, UpdateUserPayload,
     UserListPayload, UserRecord

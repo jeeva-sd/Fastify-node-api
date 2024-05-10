@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as yup from 'yup';
 import { ReplayX, RequestX } from '~/server';
 import { appConfig } from '~/config';
-import { clientError } from '~/api/shared';
+import { clientError } from '~/modules/shared';
 import { generateFilename } from '~/utils';
 
 export const validateParams = (schema: yup.AnyObjectSchema) => {

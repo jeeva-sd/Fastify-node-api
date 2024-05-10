@@ -1,5 +1,5 @@
 import { eq } from 'drizzle-orm';
-import { Result, RepoGuard } from '~/api/shared';
+import { Result, RepoGuard } from '~/modules/shared';
 import { UserResult, db, schema } from '~/database';
 
 class AuthRepository {
