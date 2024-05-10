@@ -4,18 +4,18 @@ import { testDB } from '..';
 
 export async function seedDatabase(): Promise<void> {
     try {
-        await testDBinsert(testSchema.role).values([
+        await testDB.insert(testSchema.role).values([
             { id: 1, name: 'Super Admin', description: 'Role with super admin privileges' },
             { id: 2, name: 'Admin', description: 'Role with admin privileges' },
             { id: 3, name: 'Standard user', description: 'Role with standard user privileges' },
         ]);
 
-        await testDBinsert(testSchema.status).values([
+        await testDB.insert(testSchema.status).values([
             { id: 1, name: 'Active', description: 'Active status' },
             { id: -1, name: 'Inactive', description: 'Inactive status' },
         ]);
 
-        await testDBinsert(testSchema.user).values([
+        await testDB.insert(testSchema.user).values([
             {
                 name: 'Developer',
                 email: 'developer@example.in',

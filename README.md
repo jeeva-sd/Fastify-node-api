@@ -24,11 +24,11 @@ To set up the server, follow these steps:
 
    ```plaintext
    APP_PORT=8080
-   DATABASE_HOST=localhost
-   DATABASE_PORT=3306
-   DATABASE_USERNAME=root
-   DATABASE_PASSWORD=your_password
-   DATABASE_NAME=your_database
+   TEST_DATABASE_HOST=localhost
+   TEST_DATABASE_PORT=3306
+   TEST_DATABASE_USERNAME=root
+   TEST_DATABASE_PASSWORD=your_password
+   TEST_DATABASE_NAME=your_database
    ```
 
 4. Generate migration files:
