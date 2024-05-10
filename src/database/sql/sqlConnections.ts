@@ -12,7 +12,7 @@ const connectionConfig: SqlConnectionConfig = {
         port: appConfig.testDatabase.port,
         password: appConfig.testDatabase.password,
         database: appConfig.testDatabase.database,
-        connectionLimit: 10,
+        connectionLimit: appConfig.testDatabase.connectionLimit,
     },
     localDB: {
         host: appConfig.localDatabase.host,
@@ -20,7 +20,7 @@ const connectionConfig: SqlConnectionConfig = {
         port: appConfig.localDatabase.port,
         password: appConfig.localDatabase.password,
         database: appConfig.localDatabase.database,
-        connectionLimit: 10,
+        connectionLimit: appConfig.localDatabase.connectionLimit,
     },
 };
 
