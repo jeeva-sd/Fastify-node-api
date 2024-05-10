@@ -1,21 +1,21 @@
 import { extractError } from '~/utils';
-import { db } from './connection';
-import { schema } from './schema';
+import { testSchema } from './testDB.schema';
+import { testDB } from '..';
 
 export async function seedDatabase(): Promise<void> {
     try {
-        await db.insert(schema.role).values([
+        await testDBinsert(testSchema.role).values([
             { id: 1, name: 'Super Admin', description: 'Role with super admin privileges' },
             { id: 2, name: 'Admin', description: 'Role with admin privileges' },
             { id: 3, name: 'Standard user', description: 'Role with standard user privileges' },
         ]);
 
-        await db.insert(schema.status).values([
+        await testDBinsert(testSchema.status).values([
             { id: 1, name: 'Active', description: 'Active status' },
             { id: -1, name: 'Inactive', description: 'Inactive status' },
         ]);
 
-        await db.insert(schema.user).values([
+        await testDBinsert(testSchema.user).values([
             {
                 name: 'Developer',
                 email: 'developer@example.in',

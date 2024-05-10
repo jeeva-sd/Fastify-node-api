@@ -2,8 +2,8 @@ import http, { Server as HttpServer, IncomingMessage, ServerResponse } from 'htt
 import fastify, { FastifyInstance as AppInstance } from 'fastify';
 import { App } from './app';
 import { appConfig } from '~/config';
-import { Database } from '~/database';
 import { exceptionLog } from '~/utils';
+import { sqlDbManager } from '~/database';
 
 export class Server {
     private port: number;
@@ -62,7 +62,8 @@ export class Server {
     }
 
     private async shutdown() {
-        await Database.getInstance().closeConnections();
+        await sqlDbManager.closeConnections();
+
         console.info('Closing server...');
 
         this.server.close((err) => {

@@ -73,7 +73,7 @@ export const roleRelations = relations(role, ({ many }) => ({
 // ---------------------------------------------------------------- schema ----------------------------------------------------------------
 
 
-export const schema = {
+export const testSchema = {
     user,
     status,
     role,

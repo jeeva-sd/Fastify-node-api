@@ -22,7 +22,7 @@ export interface BcryptConfig {
   saltRounds: number;
 }
 
-export interface DbConfig {
+export interface SqlConfig {
   host: string;
   port: number;
   user: string;
@@ -52,11 +52,12 @@ export interface AppConfig {
   app: AppInfo;
   jwt: JwtConfig;
   bcrypt: BcryptConfig;
-  database: DbConfig;
+  testDatabase: SqlConfig;
+  localDatabase: SqlConfig;
   validation: ValidationConfig;
   role: RoleConfig;
   status: StatusConfig;
   cors: CorsConfig;
   static: StaticPathConfig;
-  uploads: FileUploadsConfig
+  uploads: FileUploadsConfig;
 }

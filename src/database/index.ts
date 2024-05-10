@@ -1,3 +1,2 @@
-export * from './connection';
-export * from './schema';
-export * from './types';
+export * from './sql/testDB/testDB.schema';
+export * from './sql';

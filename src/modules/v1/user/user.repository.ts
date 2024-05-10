@@ -1,6 +1,6 @@
 import { AnyColumn, and, asc, desc, eq, gt, like } from 'drizzle-orm';
 import { getAffectedRows, getInsertId, selectCount } from '~/utils';
-import { db, schema } from '~/database';
+import { testDB, testSchema } from '~/database';
 import { appConfig } from '~/config';
 import { RepoGuard, Result } from '~/modules/shared';
 import {
@@ -19,43 +19,40 @@ class UserRepository {
         const offset = (page - 1) * limit;
         const take = limit;
 
-        let sortByColumn: AnyColumn = schema.user.createdAt;
-        if (sortBy === 'name') sortByColumn = schema.user.name;
-        if (sortBy === 'email') sortByColumn = schema.user.email;
-        if (sortBy === 'roleId') sortByColumn = schema.user.roleId;
+        let sortByColumn: AnyColumn = testSchema.user.createdAt;
+        if (sortBy === 'name') sortByColumn = testSchema.user.name;
+        if (sortBy === 'email') sortByColumn = testSchema.user.email;
+        if (sortBy === 'roleId') sortByColumn = testSchema.user.roleId;
 
         const isAscending = sortType.toUpperCase() === 'ASC';
         const orderByExpression = isAscending ? asc(sortByColumn) : desc(sortByColumn);
 
-        const totalRecords = await db
+        const totalRecords = await testDB
             .select(selectCount)
-            .from(schema.user)
+            .from(testSchema.user)
             .where(
                 and(
-                    like(schema.user.name, `%${searchTerm}%`),
-                    eq(schema.user.statusId, appConfig.status.active),
+                    like(testSchema.user.name, `%${searchTerm}%`),
+                    eq(testSchema.user.statusId, appConfig.status.active),
                 )
             );
 
-        const userRecord = await db
+        const userRecord = await testDB
             .select({
-                id: schema.user.id,
-                name: schema.user.name,
-                phone: schema.user.phone,
-                email: schema.user.email,
-                roleId: schema.user.roleId,
-                statusId: schema.user.statusId,
-                deviceId: schema.user.deviceId,
-                location: schema.user.location,
-                deviceOS: schema.user.deviceOS,
-                createdAt: schema.user.createdAt,
+                id: testSchema.user.id,
+                name: testSchema.user.name,
+                phone: testSchema.user.phone,
+                email: testSchema.user.email,
+                roleId: testSchema.user.roleId,
+                statusId: testSchema.user.statusId,
+                createdAt: testSchema.user.createdAt,
             })
-            .from(schema.user)
+            .from(testSchema.user)
             .where(
                 and(
-                    eq(schema.user.statusId, appConfig.status.active),
-                    offset ? gt(schema.user.id, offset) : undefined,
-                    searchTerm ? like(schema.user.name, `%${searchTerm}%`) : undefined,
+                    eq(testSchema.user.statusId, appConfig.status.active),
+                    offset ? gt(testSchema.user.id, offset) : undefined,
+                    searchTerm ? like(testSchema.user.name, `%${searchTerm}%`) : undefined,
                 ))
             .limit(take)
             .orderBy(orderByExpression);
@@ -65,7 +62,7 @@ class UserRepository {
 
     @RepoGuard
     public async insertUser(UserData: CreateUserPayload): Promise<Result<{ id: number; }>> {
-        const userRecord = await db.insert(schema.user).values(UserData);
+        const userRecord = await testDB.insert(testSchema.user).values(UserData);
         return {
             data: {
                 id: getInsertId(userRecord)
@@ -75,7 +72,7 @@ class UserRepository {
 
     @RepoGuard
     public async updateUser({ id, ...rest }: UpdateUserPayload): Promise<Result<{ id: number; }>> {
-        const updateQuery = await db.update(schema.user).set(rest).where(eq(schema.user.id, id));
+        const updateQuery = await testDB.update(testSchema.user).set(rest).where(eq(testSchema.user.id, id));
 
         const updatedRows = getAffectedRows(updateQuery);
         if (!updatedRows) return { code: 404 };
@@ -87,10 +84,10 @@ class UserRepository {
 
     @RepoGuard
     public async deleteUser(id: number): Promise<Result<{ id: number; }>> {
-        const deleteQuery = await db
-            .update(schema.user)
+        const deleteQuery = await testDB
+            .update(testSchema.user)
             .set({ statusId: appConfig.status.inactive })
-            .where(eq(schema.user.id, id));
+            .where(eq(testSchema.user.id, id));
 
         const updatedRows = getAffectedRows(deleteQuery);
         if (!updatedRows) return { code: 404 };

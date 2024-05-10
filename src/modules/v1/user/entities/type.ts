@@ -14,7 +14,4 @@ export interface UserRecord {
     roleId: number;
     createdAt: Date | null;
     statusId: number;
-    deviceId: string | null;
-    deviceOS: 'Android' | 'iOS' | 'Windows' | 'Linux' | 'macOS' | 'Other' | null;
-    location: unknown;
 }

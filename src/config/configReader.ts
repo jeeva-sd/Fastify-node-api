@@ -52,14 +52,23 @@ export const appConfig: AppConfig = {
     bcrypt: {
         saltRounds: readEnv('BCRYPT_SALT_ROUNDS', 10),
     },
-    database: {
-        host: readEnv('DATABASE_HOST', 'localhost'),
-        port: readEnv('DATABASE_PORT', 3306),
-        user: readEnv('DATABASE_USERNAME', 'root'),
-        password: readEnv('DATABASE_PASSWORD', 'QwertyuI'),
-        database: readEnv('DATABASE_NAME', 'drizzle'),
-        connectionLimit: readEnv('DATABASE_CONNECTION_LIMIT', 10),
-        url: readEnv('DATABASE_URL', 'mysql://root:QwertyuI@localhost:3306/worthReads'),
+    testDatabase: {
+        host: readEnv('TEST_DATABASE_HOST', 'localhost'),
+        port: readEnv('TEST_DATABASE_PORT', 3306),
+        user: readEnv('TEST_DATABASE_USERNAME', 'root'),
+        password: readEnv('TEST_DATABASE_PASSWORD', 'QwertyuI'),
+        database: readEnv('TEST_DATABASE_NAME', 'drizzle'),
+        connectionLimit: readEnv('TEST_DATABASE_CONNECTION_LIMIT', 10),
+        url: readEnv('TEST_DATABASE_URL', 'mysql://root:QwertyuI@localhost:3306/worthReads'),
+    },
+    localDatabase: {
+        host: readEnv('LOCAL_DATABASE_HOST', 'localhost'),
+        port: readEnv('LOCAL_DATABASE_PORT', 3306),
+        user: readEnv('LOCAL_DATABASE_USERNAME', 'demoUser'),
+        password: readEnv('LOCAL_DATABASE_PASSWORD', 'QwertyuI@123'),
+        database: readEnv('LOCAL_DATABASE_NAME', 'demo'),
+        connectionLimit: readEnv('LOCAL_DATABASE_CONNECTION_LIMIT', 10),
+        url: readEnv('LOCAL_DATABASE_URL', 'mysql://root:QwertyuI@localhost:3306/worthReads'),
     },
     validation: {
         abortEarly: readEnv('VALIDATION_ABORT_EARLY', true),

@@ -1,13 +1,13 @@
 import { eq } from 'drizzle-orm';
 import { Result, RepoGuard } from '~/modules/shared';
-import { UserResult, db, schema } from '~/database';
+import { UserResult, testDB, testSchema } from '~/database';
 
 class AuthRepository {
 
     @RepoGuard
     public async findUserByEmail(email: string): Promise<Result<UserResult>> {
-        const userRecord = await db.query.user.findFirst({
-            where: eq(schema.user.email, email),
+        const userRecord = await testDB.query.user.findFirst({
+            where: eq(testSchema.user.email, email),
         });
 
         return { data: userRecord };
@@ -15,8 +15,8 @@ class AuthRepository {
 
     @RepoGuard
     public async findUserById(id: number): Promise<Result<UserResult>> {
-        const userRecord = await db.query.user.findFirst({
-            where: eq(schema.user.id, id),
+        const userRecord = await testDB.query.user.findFirst({
+            where: eq(testSchema.user.id, id),
         });
 
         return { data: userRecord };
@@ -27,10 +27,10 @@ class AuthRepository {
         userId,
         newPassword
     }: { userId: number, newPassword: string; }): Promise<Result<null>> {
-        await db
-            .update(schema.user)
+        await testDB
+            .update(testSchema.user)
             .set({ password: newPassword })
-            .where(eq(schema.user.id, userId));
+            .where(eq(testSchema.user.id, userId));
 
         return { data: null };
     }
