@@ -66,9 +66,9 @@ export const appConfig: AppConfig = {
         port: readEnv('LOCAL_DATABASE_PORT', 3306),
         user: readEnv('LOCAL_DATABASE_USERNAME', 'demoUser'),
         password: readEnv('LOCAL_DATABASE_PASSWORD', 'QwertyuI@123'),
-        database: readEnv('LOCAL_DATABASE_NAME', 'demo'),
+        database: readEnv('LOCAL_DATABASE_NAME', 'test'),
         connectionLimit: readEnv('LOCAL_DATABASE_CONNECTION_LIMIT', 10),
-        url: readEnv('LOCAL_DATABASE_URL', 'mysql://root:QwertyuI@localhost:3306/worthReads'),
+        url: readEnv('LOCAL_DATABASE_URL', 'mysql://demoUsers:QwertyuI@123@localhost:3306/test'),
     },
     validation: {
         abortEarly: readEnv('VALIDATION_ABORT_EARLY', true),

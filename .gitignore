@@ -63,3 +63,5 @@ dist
 migrations
 
 uploads
+
+local.migrations
