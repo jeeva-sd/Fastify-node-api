@@ -60,10 +60,4 @@ export const messageObj: { [key: number]: Message; } = {
     1200: { message: 'User successfully created', status: MessageStatus.success },
     1201: { message: 'User successfully updated', status: MessageStatus.success },
     1202: { message: 'User successfully deleted', status: MessageStatus.success },
-
-    // Category
-    1300: { message: 'Category successfully created', status: MessageStatus.success },
-    1301: { message: 'Category successfully updated', status: MessageStatus.success },
-    1302: { message: 'Category successfully deleted', status: MessageStatus.success },
-    1303: { message: 'Category with the same name already exist', status: MessageStatus.failure },
 };

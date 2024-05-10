@@ -18,7 +18,7 @@ const attachRouter = (app: AppInstance) => {
 
                 app.route({
                     method: routeMethod,
-                    url: ('/modules/' + urlPrefix + '/' + controllerPath + '/' + route.url).replace(/\/+$/, ''),
+                    url: ('/api/' + urlPrefix + '/' + controllerPath + '/' + route.url).replace(/\/+$/, ''),
                     preHandler: [...controllerMiddleware, ...routeMiddleware, ...paramValidationMiddleware],
                     async handler(request, reply): Promise<void> {
                         try {
