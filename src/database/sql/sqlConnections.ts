@@ -1,8 +1,8 @@
-import { appConfig } from "~/config";
+import { appConfig } from '~/config';
 import { testSchema } from './testDB/testDB.schema';
-import { DatabaseManager } from "./sqlManager";
-import { SqlConnectionConfig } from "./type";
-import { MySql2Database } from "drizzle-orm/mysql2";
+import { DatabaseManager } from './sqlManager';
+import { SqlConnectionConfig } from './type';
+import { MySql2Database } from 'drizzle-orm/mysql2';
 
 // Define database configurations
 const connectionConfig: SqlConnectionConfig = {

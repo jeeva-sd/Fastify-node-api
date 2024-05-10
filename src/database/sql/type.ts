@@ -1,4 +1,4 @@
-import { PoolOptions } from "mysql2";
+import { PoolOptions } from 'mysql2';
 import { InferSelectModel } from 'drizzle-orm';
 import { testSchema } from './testDB/testDB.schema';
 
