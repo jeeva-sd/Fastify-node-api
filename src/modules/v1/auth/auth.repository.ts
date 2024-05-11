@@ -30,7 +30,7 @@ class AuthRepository {
             .set({ password: newPassword })
             .where(eq(testSchema.user.id, userId));
 
-        if (!getAffectedRows(result)) throw new Exception(null, 'Invalid user');
+        if (!getAffectedRows(result)) throw new Exception(404);
         return null;
     }
 }

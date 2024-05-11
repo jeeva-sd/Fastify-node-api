@@ -13,7 +13,7 @@ class AuthCore {
         if (!user) throw new Exception(401);
 
         const passwordMatch = await bcrypt.compare(payload.password, user.password);
-        if (!passwordMatch) return take(1050);
+        if (!passwordMatch) throw new Exception(1050);
 
         const tokenData: TokenData = {
             userId: user.id,
@@ -42,7 +42,7 @@ class AuthCore {
         if (!user) throw new Exception(1055);
 
         const passwordMatch = await bcrypt.compare(payload.password, user.password);
-        if (!passwordMatch) return take(1050);
+        if (!passwordMatch) throw new Exception(401);
 
         const newPassword = await bcrypt.hash(payload.newPassword, appConfig.bcrypt.saltRounds);
         await this.authRepo().resetUserPassword({
