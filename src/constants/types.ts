@@ -4,12 +4,11 @@ export enum MessageStatus {
     error = 'error',
 }
 
-export interface Message {
+export interface MessageData {
     message: string;
     status: string;
-    httpStatus?: number;
 }
 
 export interface Messages {
-    [key: number]: Message;
+    [key: number]: MessageData;
 }

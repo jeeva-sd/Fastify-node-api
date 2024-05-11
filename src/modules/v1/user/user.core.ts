@@ -1,6 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { ResponseX } from '~/server';
-import { dataList, take } from '~/modules/shared';
+import { dataList, take, ResponseX } from '~/server';
 import { appConfig } from '~/config';
 import { UserRepository } from './user.repository';
 import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './user.type';

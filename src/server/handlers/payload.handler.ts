@@ -3,8 +3,8 @@ import * as path from 'path';
 import * as yup from 'yup';
 import { ReplayX, RequestX } from '~/server';
 import { appConfig } from '~/config';
-import { clientError } from '~/modules/shared';
 import { generateFilename } from '~/utils';
+import { clientError } from './response.handler';
 
 export const validatePayload = (schema: yup.AnyObjectSchema) => {
     return async (req: RequestX, reply: ReplayX): Promise<void> => {

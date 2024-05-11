@@ -1,5 +1,5 @@
-import { ResponseX } from "~/server";
-import { take } from "./response.handler";
+import { ResponseX } from '~/server';
+import { take } from './response.handler';
 
 export class Exception extends Error {
     statusCode: number;

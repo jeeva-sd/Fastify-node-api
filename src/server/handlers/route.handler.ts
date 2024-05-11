@@ -1,8 +1,8 @@
 import { FastifyInstance as AppInstance } from 'fastify';
-import { Exception, GetMetaData, serverError, validatePayload } from '~/modules/shared';
-import { ReplayX, ResponseX } from './types';
+import { ReplayX, ResponseX } from '../types';
 import { exceptionLog } from '~/utils';
-import { appRoutes } from './routes';
+import { appRoutes } from '../routes';
+import { Exception, GetMetaData, serverError, validatePayload } from '.';
 
 const attachRouter = (app: AppInstance) => {
     appRoutes?.forEach((item) => {

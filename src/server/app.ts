@@ -3,9 +3,8 @@ import fastifyCors from '@fastify/cors';
 import fastifyStatic from '@fastify/static';
 import fastifyMultipart from '@fastify/multipart';
 
-import { attachRouter } from './attachRouter';
 import { appConfig } from '~/config';
-import { notFound, take } from '~/modules/shared';
+import { notFound, take, attachRouter } from './handlers';
 
 export class App {
     private app: AppInstance;

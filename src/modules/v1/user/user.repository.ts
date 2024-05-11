@@ -1,8 +1,8 @@
 import { AnyColumn, and, asc, desc, eq, gt, like } from 'drizzle-orm';
+import { Exception } from '~/server';
 import { getAffectedRows, getInsertId, selectCount } from '~/utils';
 import { testDB, testSchema } from '~/database';
 import { appConfig } from '~/config';
-import { Exception } from '~/modules/shared';
 import {
     CreateUserPayload, UpdateUserPayload,
     UserListPayload, UserRecord

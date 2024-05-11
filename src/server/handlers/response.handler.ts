@@ -1,13 +1,12 @@
 import { ResponseX } from '~/server';
 import { appConfig } from '~/config';
-import {  extractError } from '~/utils';
-import { messageObj } from '../message';
-import { MessageStatus } from '../types';
+import { extractError } from '~/utils';
+import { responseMessages, MessageStatus } from '../../constants';
 
 // Common function to build an ResponseX
 const buildResponseX = (code: number, data?: any, options?: any): ResponseX => {
-    const message = options?.message ? extractError(options?.message) : (messageObj[code]?.message ?? null);
-    const status = messageObj[code]?.status ?? MessageStatus.success;
+    const message = options?.message ? extractError(options?.message) : (responseMessages[code]?.message ?? null);
+    const status = responseMessages[code]?.status ?? MessageStatus.success;
     const error = options?.error ? extractError(options?.error) : null;
 
     return {

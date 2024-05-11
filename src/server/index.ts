@@ -1,5 +1,2 @@
-import { Server } from './server';
+export * from './handlers'
 export * from './types';
-
-const server = new Server();
-server.run();

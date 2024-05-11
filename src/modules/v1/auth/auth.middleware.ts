@@ -1,6 +1,5 @@
 import * as jwt from 'jsonwebtoken';
-import { ReplayX, RequestX } from '~/server';
-import { MiddlewareFunction, take } from '~/modules/shared';
+import { ReplayX, RequestX, MiddlewareFunction, take } from '~/server';
 import { appConfig } from '~/config';
 import { TokenData } from './auth.type';
 
