@@ -1,6 +1,6 @@
 import { AnyColumn, and, asc, desc, eq, gt, like } from 'drizzle-orm';
 import { Exception } from '~/server';
-import { getAffectedRows, getInsertId, selectCount } from '~/utils';
+import { getAffectedRows, getInsertId, selectCount } from '~/helpers';
 import { testDB, testSchema } from '~/database';
 import { appConfig } from '~/config';
 import {

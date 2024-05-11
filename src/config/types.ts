@@ -1,9 +1,5 @@
 import { CorsConfig, StaticPathConfig, ServerConfig, ValidationConfig, FileUploadsConfig } from '~/server';
 
-export interface Environment {
-  [key: string]: string | undefined;
-}
-
 export interface AppInfo {
   version: string;
   name: string;

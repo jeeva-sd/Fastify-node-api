@@ -26,3 +26,6 @@ export interface CustomRoute {
     sanitizeSchema: null | any;
 }
 
+export interface Environment {
+    [key: string]: string | undefined;
+  }

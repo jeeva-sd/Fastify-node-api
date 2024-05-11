@@ -1,4 +1,4 @@
-import { extractError } from '~/utils';
+import { extractError } from '~/helpers';
 import { testSchema } from './testDB.schema';
 import { testDB } from '..';
 

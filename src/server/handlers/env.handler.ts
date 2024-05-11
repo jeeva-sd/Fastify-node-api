@@ -1,6 +1,6 @@
 import fs from 'fs';
 import dotenv from 'dotenv';
-import { Environment } from '~/config';
+import { Environment } from './type';
 
 // Load environment variables from the corresponding .env file
 const environment = process?.env?.NODE_ENV ? `.${process.env.NODE_ENV.trim()}.env` : '.env';

@@ -1,4 +1,4 @@
-import { extractError } from '~/utils';
+import { extractError } from '~/helpers';
 import { localSchema } from './localDB.schema';
 import { localDB } from '..';
 

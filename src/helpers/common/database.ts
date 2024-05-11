@@ -9,9 +9,12 @@ export function getCount(data: unknown): number {
     return data[0].count;
 }
 
-export function getInsertId(result: unknown) {
+export function getInsertId(result: unknown): number {
     try {
-        if (result && result instanceof Array && result.length > 0 && result[0].hasOwnProperty('insertId')) {
+        if (result &&
+            result instanceof Array &&
+            result.length > 0 &&
+            Object.prototype.hasOwnProperty.call(result[0], 'insertId')) {
             return result[0].insertId;
         }
 
@@ -24,7 +27,10 @@ export function getInsertId(result: unknown) {
 
 export function getAffectedRows(result: unknown): number {
     try {
-        if (result && result instanceof Array && result.length > 0 && result[0].hasOwnProperty('affectedRows')) {
+        if (result &&
+            result instanceof Array &&
+            result.length > 0 &&
+            Object.prototype.hasOwnProperty.call(result[0], 'affectedRows')) {
             return result[0].affectedRows;
         }
 

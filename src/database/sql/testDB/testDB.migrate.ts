@@ -2,7 +2,7 @@ import mysql from 'mysql2';
 import { migrate } from 'drizzle-orm/mysql2/migrator';
 import { drizzle } from 'drizzle-orm/mysql2';
 import { appConfig } from '../../../config';
-import { extractError } from '../../../utils';
+import { extractError } from '../../../helpers';
 
 (async () => {
     let connection = null;

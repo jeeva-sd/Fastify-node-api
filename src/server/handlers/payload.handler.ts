@@ -3,7 +3,7 @@ import * as path from 'path';
 import * as yup from 'yup';
 import { ReplayX, RequestX } from '~/server';
 import { appConfig } from '~/config';
-import { generateFilename } from '~/utils';
+import { generateFilename } from '~/helpers';
 import { clientError } from './response.handler';
 
 export const validatePayload = (schema: yup.AnyObjectSchema) => {

@@ -1,6 +1,6 @@
 import { MySql2Database, drizzle } from 'drizzle-orm/mysql2';
 import mysql, { Pool } from 'mysql2/promise';
-import { log } from '~/utils';
+import { log } from '~/helpers';
 import { SqlConnectionConfig } from './type';
 
 export class DatabaseManager {

@@ -2,7 +2,7 @@ import http, { Server as HttpServer, IncomingMessage, ServerResponse } from 'htt
 import fastify, { FastifyInstance as AppInstance } from 'fastify';
 import { App } from './app';
 import { appConfig } from '~/config';
-import { exceptionLog } from '~/utils';
+import { exceptionLog } from '~/helpers';
 import { sqlDbManager } from '~/database';
 
 export class Server {

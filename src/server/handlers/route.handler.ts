@@ -1,6 +1,6 @@
 import { FastifyInstance as AppInstance } from 'fastify';
 import { ReplayX, ResponseX } from '../types';
-import { exceptionLog } from '~/utils';
+import { exceptionLog } from '~/helpers';
 import { appRoutes } from '../routes';
 import { Exception, GetMetaData, serverError, validatePayload } from '.';
 

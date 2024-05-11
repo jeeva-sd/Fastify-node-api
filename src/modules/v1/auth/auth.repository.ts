@@ -1,7 +1,7 @@
 import { eq } from 'drizzle-orm';
 import { Exception } from '~/server';
 import { UserResult, testDB, testSchema } from '~/database';
-import { getAffectedRows } from '~/utils';
+import { getAffectedRows } from '~/helpers';
 
 class AuthRepository {
 

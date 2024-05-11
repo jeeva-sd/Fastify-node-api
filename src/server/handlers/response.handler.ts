@@ -1,6 +1,6 @@
 import { ResponseX } from '~/server';
 import { appConfig } from '~/config';
-import { extractError } from '~/utils';
+import { extractError } from '~/helpers';
 import { responseMessages, MessageStatus } from '../../constants';
 
 // Common function to build an ResponseX
