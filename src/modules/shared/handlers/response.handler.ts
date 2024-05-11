@@ -3,7 +3,6 @@ import { appConfig } from '~/config';
 import {  extractError } from '~/utils';
 import { messageObj } from '../message';
 import { MessageStatus } from '../types';
-import { Result } from './type';
 
 // Common function to build an ResponseX
 const buildResponseX = (code: number, data?: any, options?: any): ResponseX => {
@@ -54,13 +53,6 @@ export const serverError = (errorObj?: any): ResponseX => {
 // not found
 export const notFound = (error?: any): ResponseX => {
     return buildResponseX(404, null, { error });
-};
-
-export const repoError = (response: Result): ResponseX => {
-    const code = response?.code || 500;
-    const error = response?.error || null;
-    const message = response?.message || null;
-    return buildResponseX(code, null, { error, message });
 };
 
 export const dataFound = (res: any): ResponseX => {

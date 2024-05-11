@@ -1,24 +1,24 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { ResponseX } from '~/server';
-import { repoError, take } from '~/modules/shared';
+import { Exception, take } from '~/modules/shared';
 import { appConfig } from '~/config';
-import { LoginPayload, ResetPasswordPayload, TokenData } from './entities/type';
 import { AuthRepository } from './auth.repository';
+import { LoginPayload, ResetPasswordPayload, TokenData } from './entities/type';
 
 class AuthCore {
     private authRepository: AuthRepository;
 
     public async login(payload: LoginPayload): Promise<ResponseX> {
         const user = await this.repoInstance().findUserByEmail(payload.email);
-        if (!user.data) return take(1050);
+        if (!user) throw new Exception(401);
 
-        const passwordMatch = await bcrypt.compare(payload.password, user.data.password);
+        const passwordMatch = await bcrypt.compare(payload.password, user.password);
         if (!passwordMatch) return take(1050);
 
         const tokenData: TokenData = {
-            userId: user.data.id,
-            roleId: user.data.roleId,
+            userId: user.id,
+            roleId: user.roleId,
         };
 
         const token = jwt.sign(
@@ -27,11 +27,11 @@ class AuthCore {
         );
 
         const response = {
-            userId: user.data.id,
-            name: user.data.name,
-            email: user.data.email,
-            roleId: user.data.roleId,
-            createdAt: user.data.createdAt,
+            userId: user.id,
+            name: user.name,
+            email: user.email,
+            roleId: user.roleId,
+            createdAt: user.createdAt,
             token
         };
 
@@ -40,17 +40,16 @@ class AuthCore {
 
     public async resetPassword(payload: ResetPasswordPayload, tokenData: TokenData): Promise<ResponseX> {
         const user = await this.repoInstance().findUserById(tokenData.userId);
-        if (!user.data) return take(1055);
+        if (!user) throw new Exception(1055);
 
-        const passwordMatch = await bcrypt.compare(payload.password, user.data.password);
+        const passwordMatch = await bcrypt.compare(payload.password, user.password);
         if (!passwordMatch) return take(1050);
 
         const newPassword = await bcrypt.hash(payload.newPassword, appConfig.bcrypt.saltRounds);
-        const resetPasswordResult = await this.repoInstance().resetUserPassword({
+        await this.repoInstance().resetUserPassword({
             userId: tokenData.userId, newPassword
         });
 
-        if (!resetPasswordResult.success) return repoError(resetPasswordResult);
         return take(1056);
     }
 

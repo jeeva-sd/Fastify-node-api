@@ -1,18 +1,16 @@
 import * as bcrypt from 'bcrypt';
 import { ResponseX } from '~/server';
-import { dataList, repoError, take } from '~/modules/shared';
+import { dataList, take } from '~/modules/shared';
 import { appConfig } from '~/config';
-import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './entities/type';
 import { UserRepository } from './user.repository';
+import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './entities/type';
 
 class UserCore {
     private authRepository: UserRepository;
 
     public async getUserList(userListPayload: UserListPayload): Promise<ResponseX> {
         const userList = await this.repoInstance().findManyUsers(userListPayload);
-        if (!userList.success) return repoError(userList);
-
-        return dataList(userList.data);
+        return dataList(userList);
     }
 
     public async createUser(payload: CreateUserPayload): Promise<ResponseX> {
@@ -22,23 +20,17 @@ class UserCore {
         };
 
         const createUser = await this.repoInstance().insertUser(userData);
-        if (!createUser.success) return repoError(createUser);
-
-        return take(1200, createUser.data);
+        return take(1200, createUser);
     }
 
     public async updateUser(payload: UpdateUserPayload): Promise<ResponseX> {
         const updateUser = await this.repoInstance().updateUser(payload);
-        if (!updateUser.success) return repoError(updateUser);
-
-        return take(1201, updateUser.data);
+        return take(1201, updateUser);
     }
 
     public async deleteUser(payload: DeleteUserPayload): Promise<ResponseX> {
         const deleteUser = await this.repoInstance().deleteUser(payload.id);
-        if (!deleteUser.success) return repoError(deleteUser);
-
-        return take(1202, deleteUser.data);
+        return take(1202, deleteUser);
     }
 
     private repoInstance(): UserRepository {

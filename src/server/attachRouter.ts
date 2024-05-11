@@ -1,6 +1,7 @@
 import { FastifyInstance as AppInstance } from 'fastify';
 import { Exception, GetMetaData, serverError, validateParams } from '~/modules/shared';
 import { ReplayX, ResponseX } from './types';
+import { exceptionLog } from '~/utils';
 import { appRoutes } from './routes';
 
 const attachRouter = (app: AppInstance) => {
@@ -30,6 +31,7 @@ const attachRouter = (app: AppInstance) => {
                             return response
                                 .then((data: ResponseX) => sendResponse(reply, data))
                                 .catch((error) => {
+                                    exceptionLog(error);
                                     reply.status(500).send(serverError(error));
                                 });
                         } catch (error) {
@@ -39,6 +41,7 @@ const attachRouter = (app: AppInstance) => {
 
                                 reply.status(errorCode).send(response);
                             } else {
+                                exceptionLog(error);
                                 reply.status(500).send(serverError(error));
                             }
                         }

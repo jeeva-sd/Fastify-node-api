@@ -22,7 +22,7 @@ export function getInsertId(result: unknown) {
     }
 }
 
-export function getAffectedRows(result: unknown) {
+export function getAffectedRows(result: unknown): number {
     try {
         if (result && result instanceof Array && result.length > 0 && result[0].hasOwnProperty('affectedRows')) {
             return result[0].affectedRows;

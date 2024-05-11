@@ -16,14 +16,6 @@ export interface MetaData {
     };
 }
 
-export type Result<T = any> = {
-    success?: boolean;
-    data?: T;
-    error?: any;
-    code?: number;
-    message?: string;
-};
-
 export type RouteMethod = 'get' | 'post' | 'put' | 'delete' | 'patch' | 'options' | 'head';
 
 export interface CustomRoute {

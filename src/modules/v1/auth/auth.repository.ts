@@ -1,35 +1,37 @@
 import { eq } from 'drizzle-orm';
-import { Result } from '~/modules/shared';
 import { UserResult, testDB, testSchema } from '~/database';
+import { Exception } from '~/modules/shared';
+import { getAffectedRows } from '~/utils';
 
 class AuthRepository {
 
-    public async findUserByEmail(email: string): Promise<Result<UserResult>> {
+    public async findUserByEmail(email: string): Promise<UserResult | undefined> {
         const userRecord = await testDB.query.user.findFirst({
             where: eq(testSchema.user.email, email),
         });
 
-        return { data: userRecord };
+        return userRecord;
     }
 
-    public async findUserById(id: number): Promise<Result<UserResult>> {
+    public async findUserById(id: number): Promise<UserResult | undefined> {
         const userRecord = await testDB.query.user.findFirst({
             where: eq(testSchema.user.id, id),
         });
 
-        return { data: userRecord };
+        return userRecord;
     }
 
     public async resetUserPassword({
         userId,
         newPassword
-    }: { userId: number, newPassword: string; }): Promise<Result<null>> {
-        await testDB
+    }: { userId: number, newPassword: string; }): Promise<null> {
+        const result = await testDB
             .update(testSchema.user)
             .set({ password: newPassword })
             .where(eq(testSchema.user.id, userId));
 
-        return { data: null };
+        if (!getAffectedRows(result)) throw new Exception(null, 'Invalid user');
+        return null;
     }
 }
 
