@@ -8,7 +8,8 @@ export class DatabaseManager {
 
     constructor(private connectionConfig: SqlConnectionConfig) { }
 
-    public getConnection(name: string, schema: Record<string, unknown> | undefined) {
+    public getConnection(name: string, schema: Record<string, unknown> | undefined)
+        : MySql2Database<Record<string, unknown>> {
         if (this.connections[name]) {
             return drizzle(this.connections[name], { schema, mode: 'default' });
         } else if (this.connectionConfig[name]) {

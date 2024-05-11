@@ -1,4 +1,4 @@
-import { extractError } from '~/helpers';
+import { extractError, log } from '../../../helpers';
 import { testSchema } from './testDB.schema';
 import { testDB } from '..';
 
@@ -42,7 +42,7 @@ export async function seedDatabase(): Promise<void> {
             }
         ]);
 
-        console.log('Database seeded successfully.');
+        log('Database seeded successfully.');
         process.exit(1);
     } catch (error) {
         console.error('Error seeding database:', extractError(error));

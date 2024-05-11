@@ -1,8 +1,7 @@
 import { int, varchar, index, mysqlTable, timestamp } from 'drizzle-orm/mysql-core';
 import { relations } from 'drizzle-orm';
 
-// ---------------------------------------------------------------- tables ----------------------------------------------------------------
-
+// ------------------------------------------ tables ------------------------------------------
 
 export const user = mysqlTable('user', {
     id: int('id').primaryKey().autoincrement().unique(),
@@ -45,8 +44,7 @@ export const role = mysqlTable('role', {
     };
 });
 
-// ---------------------------------------------------------------- relations ----------------------------------------------------------------
-
+// ------------------------------------------ relations ------------------------------------------
 
 export const userRelations = relations(user, ({ one }) => ({
     role: one(role, {
@@ -69,9 +67,7 @@ export const roleRelations = relations(role, ({ many }) => ({
     users: many(user),
 }));
 
-
-// ---------------------------------------------------------------- schema ----------------------------------------------------------------
-
+// ------------------------------------------ schema ------------------------------------------
 
 export const testSchema = {
     user,
