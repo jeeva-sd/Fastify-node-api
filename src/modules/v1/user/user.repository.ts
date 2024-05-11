@@ -6,7 +6,7 @@ import { Exception } from '~/modules/shared';
 import {
     CreateUserPayload, UpdateUserPayload,
     UserListPayload, UserRecord
-} from './entities/type';
+} from './user.type';
 
 class UserRepository {
 

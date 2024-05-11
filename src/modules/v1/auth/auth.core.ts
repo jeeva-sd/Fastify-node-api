@@ -4,7 +4,7 @@ import { ResponseX } from '~/server';
 import { Exception, take } from '~/modules/shared';
 import { appConfig } from '~/config';
 import { AuthRepository } from './auth.repository';
-import { LoginPayload, ResetPasswordPayload, TokenData } from './entities/type';
+import { LoginPayload, ResetPasswordPayload, TokenData } from './auth.type';
 
 class AuthCore {
     private authRepository: AuthRepository;

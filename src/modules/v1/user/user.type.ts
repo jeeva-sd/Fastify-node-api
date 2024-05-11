@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { createUserPayload, deleteUserPayload, updateUserPayload, userListPayload } from './payload';
+import { createUserPayload, deleteUserPayload, updateUserPayload, userListPayload } from './user.payload';
 
 export type CreateUserPayload = yup.InferType<typeof createUserPayload>;
 export type UserListPayload = yup.InferType<typeof userListPayload>;

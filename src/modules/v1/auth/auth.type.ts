@@ -1,5 +1,5 @@
 import * as yup from 'yup';
-import { loginPayload, resetPasswordPayload } from './payload';
+import { loginPayload, resetPasswordPayload } from './auth.payload';
 
 export type LoginPayload = yup.InferType<typeof loginPayload>;
 export type ResetPasswordPayload = yup.InferType<typeof resetPasswordPayload>;

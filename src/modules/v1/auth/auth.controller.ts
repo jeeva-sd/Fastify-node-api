@@ -1,9 +1,9 @@
 import { RequestX, ResponseX } from '~/server';
 import { Controller, Sanitize, Post, Apply } from '~/modules/shared';
-import { loginPayload, resetPasswordPayload } from './entities/payload';
+import { loginPayload, resetPasswordPayload } from './auth.payload';
 import { tokenAuth } from './auth.middleware';
 import { AuthCore } from './auth.core';
-import { TokenData } from './entities/type';
+import { TokenData } from './auth.type';
 
 @Controller('auth')
 class AuthController {

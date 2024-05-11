@@ -1,7 +1,7 @@
 import { RequestX, ResponseX } from '~/server';
 import { Controller, Sanitize, Post, Patch, Apply, Get, Delete } from '~/modules/shared';
 import { tokenAuth, adminAuth } from '~/modules/v1/auth';
-import { createUserPayload, updateUserPayload, userListPayload } from './entities/payload';
+import { createUserPayload, updateUserPayload, userListPayload } from './user.payload';
 import { UserCore } from './user.core';
 
 @Controller('user', [tokenAuth])

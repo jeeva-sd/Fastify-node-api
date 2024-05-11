@@ -3,7 +3,7 @@ import { ResponseX } from '~/server';
 import { dataList, take } from '~/modules/shared';
 import { appConfig } from '~/config';
 import { UserRepository } from './user.repository';
-import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './entities/type';
+import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './user.type';
 
 class UserCore {
     private authRepository: UserRepository;
