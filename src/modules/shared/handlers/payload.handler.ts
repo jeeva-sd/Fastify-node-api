@@ -6,7 +6,7 @@ import { appConfig } from '~/config';
 import { clientError } from '~/modules/shared';
 import { generateFilename } from '~/utils';
 
-export const validateParams = (schema: yup.AnyObjectSchema) => {
+export const validatePayload = (schema: yup.AnyObjectSchema) => {
     return async (req: RequestX, reply: ReplayX): Promise<void> => {
         try {
             let formData = {};

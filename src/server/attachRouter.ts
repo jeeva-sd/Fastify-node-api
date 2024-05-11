@@ -1,5 +1,5 @@
 import { FastifyInstance as AppInstance } from 'fastify';
-import { Exception, GetMetaData, serverError, validateParams } from '~/modules/shared';
+import { Exception, GetMetaData, serverError, validatePayload } from '~/modules/shared';
 import { ReplayX, ResponseX } from './types';
 import { exceptionLog } from '~/utils';
 import { appRoutes } from './routes';
@@ -13,7 +13,7 @@ const attachRouter = (app: AppInstance) => {
             const { controllerMiddleware = [], controller: controllerPath, routes } = metaData;
 
             Object.entries(routes).forEach(([methodName, route]) => {
-                const paramValidationMiddleware = route?.sanitizeSchema ? [validateParams(route?.sanitizeSchema)] : [];
+                const paramValidationMiddleware = route?.sanitizeSchema ? [validatePayload(route?.sanitizeSchema)] : [];
                 const { method: routeMethod, middleware: routeMiddleware = [] } = route;
                 const urlPrefix = item?.prefix ? item?.prefix : '';
 
