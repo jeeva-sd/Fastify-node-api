@@ -1,6 +1,6 @@
 import * as bcrypt from 'bcrypt';
 import { ResponseX } from '~/server';
-import { CoreGuard, dataList, repoError, take } from '~/modules/shared';
+import { dataList, repoError, take } from '~/modules/shared';
 import { appConfig } from '~/config';
 import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './entities/type';
 import { UserRepository } from './user.repository';
@@ -8,7 +8,6 @@ import { UserRepository } from './user.repository';
 class UserCore {
     private authRepository: UserRepository;
 
-    @CoreGuard
     public async getUserList(userListPayload: UserListPayload): Promise<ResponseX> {
         const userList = await this.repoInstance().findManyUsers(userListPayload);
         if (!userList.success) return repoError(userList);
@@ -16,7 +15,6 @@ class UserCore {
         return dataList(userList.data);
     }
 
-    @CoreGuard
     public async createUser(payload: CreateUserPayload): Promise<ResponseX> {
         const userData = {
             ...payload,
@@ -29,7 +27,6 @@ class UserCore {
         return take(1200, createUser.data);
     }
 
-    @CoreGuard
     public async updateUser(payload: UpdateUserPayload): Promise<ResponseX> {
         const updateUser = await this.repoInstance().updateUser(payload);
         if (!updateUser.success) return repoError(updateUser);
@@ -37,7 +34,6 @@ class UserCore {
         return take(1201, updateUser.data);
     }
 
-    @CoreGuard
     public async deleteUser(payload: DeleteUserPayload): Promise<ResponseX> {
         const deleteUser = await this.repoInstance().deleteUser(payload.id);
         if (!deleteUser.success) return repoError(deleteUser);

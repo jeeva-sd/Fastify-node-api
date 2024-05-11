@@ -5,7 +5,7 @@ import fastifyMultipart from '@fastify/multipart';
 
 import { attachRouter } from './attachRouter';
 import { appConfig } from '~/config';
-import { exception, notFound, take } from '~/modules/shared';
+import { notFound, take } from '~/modules/shared';
 
 export class App {
     private app: AppInstance;
@@ -43,7 +43,9 @@ export class App {
 
         // Handle unexpected errors
         this.app.setErrorHandler((err, _req, reply) => {
-            reply.status(err.statusCode || 500).send(exception(err));
+            const statusCode = err.statusCode || 500;
+            const errorMessage = err.message || 'Internal Server Error';
+            reply.status(statusCode).send({ message: errorMessage });
         });
     }
 }

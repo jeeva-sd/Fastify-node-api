@@ -1,5 +1,5 @@
 import { FastifyInstance as AppInstance } from 'fastify';
-import { GetMetaData, serverError, validateParams } from '~/modules/shared';
+import { Exception, GetMetaData, serverError, validateParams } from '~/modules/shared';
 import { ReplayX, ResponseX } from './types';
 import { appRoutes } from './routes';
 
@@ -29,20 +29,28 @@ const attachRouter = (app: AppInstance) => {
 
                             return response
                                 .then((data: ResponseX) => sendResponse(reply, data))
-                                .catch((error) => reply.status(500).send(serverError(error)));
+                                .catch((error) => {
+                                    reply.status(500).send(serverError(error));
+                                });
                         } catch (error) {
-                            reply.status(500).send(serverError(error));
+                            if (error instanceof Exception) {
+                                const errorCode = error.statusCode >= 200 && error.statusCode < 1000 ? error.statusCode : 400;
+                                const response = error?.response ? error.response : serverError(error);
+
+                                reply.status(errorCode).send(response);
+                            } else {
+                                reply.status(500).send(serverError(error));
+                            }
                         }
                     }
                 });
             });
         });
-
     });
 };
 
 const sendResponse = (reply: ReplayX, response: ResponseX) => {
-    const statusCode = response.status === 'success' ? 200 : 400;
+    const statusCode = response.code >= 200 && response.code < 1000 ? response.code : 200;
     return reply.code(statusCode).send(response);
 };
 

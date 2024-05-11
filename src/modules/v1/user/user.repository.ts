@@ -2,7 +2,7 @@ import { AnyColumn, and, asc, desc, eq, gt, like } from 'drizzle-orm';
 import { getAffectedRows, getInsertId, selectCount } from '~/utils';
 import { testDB, testSchema } from '~/database';
 import { appConfig } from '~/config';
-import { RepoGuard, Result } from '~/modules/shared';
+import { Result } from '~/modules/shared';
 import {
     CreateUserPayload, UpdateUserPayload,
     UserListPayload, UserRecord
@@ -10,7 +10,6 @@ import {
 
 class UserRepository {
 
-    @RepoGuard
     public async findManyUsers(userListPayload: UserListPayload): Promise<Result<{
         userRecord: UserRecord[];
         totalRecords: number;
@@ -60,7 +59,6 @@ class UserRepository {
         return { data: { totalRecords: totalRecords[0].count, userRecord } };
     }
 
-    @RepoGuard
     public async insertUser(UserData: CreateUserPayload): Promise<Result<{ id: number; }>> {
         const userRecord = await testDB.insert(testSchema.user).values(UserData);
         return {
@@ -70,7 +68,6 @@ class UserRepository {
         };
     }
 
-    @RepoGuard
     public async updateUser({ id, ...rest }: UpdateUserPayload): Promise<Result<{ id: number; }>> {
         const updateQuery = await testDB.update(testSchema.user).set(rest).where(eq(testSchema.user.id, id));
 
@@ -82,7 +79,6 @@ class UserRepository {
         };
     }
 
-    @RepoGuard
     public async deleteUser(id: number): Promise<Result<{ id: number; }>> {
         const deleteQuery = await testDB
             .update(testSchema.user)

@@ -1,7 +1,7 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
 import { ResponseX } from '~/server';
-import { CoreGuard, repoError, take } from '~/modules/shared';
+import { repoError, take } from '~/modules/shared';
 import { appConfig } from '~/config';
 import { LoginPayload, ResetPasswordPayload, TokenData } from './entities/type';
 import { AuthRepository } from './auth.repository';
@@ -9,7 +9,6 @@ import { AuthRepository } from './auth.repository';
 class AuthCore {
     private authRepository: AuthRepository;
 
-    @CoreGuard
     public async login(payload: LoginPayload): Promise<ResponseX> {
         const user = await this.repoInstance().findUserByEmail(payload.email);
         if (!user.data) return take(1050);
@@ -39,7 +38,6 @@ class AuthCore {
         return take(1051, response);
     }
 
-    @CoreGuard
     public async resetPassword(payload: ResetPasswordPayload, tokenData: TokenData): Promise<ResponseX> {
         const user = await this.repoInstance().findUserById(tokenData.userId);
         if (!user.data) return take(1055);
