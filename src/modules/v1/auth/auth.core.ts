@@ -9,7 +9,7 @@ class AuthCore {
     private authRepository: AuthRepository;
 
     public async login(payload: LoginPayload): Promise<ResponseX> {
-        const user = await this.repoInstance().findUserByEmail(payload.email);
+        const user = await this.authRepo().findUserByEmail(payload.email);
         if (!user) throw new Exception(401);
 
         const passwordMatch = await bcrypt.compare(payload.password, user.password);
@@ -38,21 +38,21 @@ class AuthCore {
     }
 
     public async resetPassword(payload: ResetPasswordPayload, tokenData: TokenData): Promise<ResponseX> {
-        const user = await this.repoInstance().findUserById(tokenData.userId);
+        const user = await this.authRepo().findUserById(tokenData.userId);
         if (!user) throw new Exception(1055);
 
         const passwordMatch = await bcrypt.compare(payload.password, user.password);
         if (!passwordMatch) return take(1050);
 
         const newPassword = await bcrypt.hash(payload.newPassword, appConfig.bcrypt.saltRounds);
-        await this.repoInstance().resetUserPassword({
+        await this.authRepo().resetUserPassword({
             userId: tokenData.userId, newPassword
         });
 
         return take(1056);
     }
 
-    private repoInstance(): AuthRepository {
+    private authRepo(): AuthRepository {
         if (!this.authRepository) this.authRepository = new AuthRepository();
         return this.authRepository;
     }

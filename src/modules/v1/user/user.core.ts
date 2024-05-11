@@ -5,10 +5,10 @@ import { UserRepository } from './user.repository';
 import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './user.type';
 
 class UserCore {
-    private authRepository: UserRepository;
+    private userRepository: UserRepository;
 
     public async getUserList(userListPayload: UserListPayload): Promise<ResponseX> {
-        const userList = await this.repoInstance().findManyUsers(userListPayload);
+        const userList = await this.userRepo().findManyUsers(userListPayload);
         return dataList(userList);
     }
 
@@ -18,23 +18,23 @@ class UserCore {
             password: await bcrypt.hash(payload.password, appConfig.bcrypt.saltRounds),
         };
 
-        const createUser = await this.repoInstance().insertUser(userData);
+        const createUser = await this.userRepo().insertUser(userData);
         return take(1200, createUser);
     }
 
     public async updateUser(payload: UpdateUserPayload): Promise<ResponseX> {
-        const updateUser = await this.repoInstance().updateUser(payload);
+        const updateUser = await this.userRepo().updateUser(payload);
         return take(1201, updateUser);
     }
 
     public async deleteUser(payload: DeleteUserPayload): Promise<ResponseX> {
-        const deleteUser = await this.repoInstance().deleteUser(payload.id);
+        const deleteUser = await this.userRepo().deleteUser(payload.id);
         return take(1202, deleteUser);
     }
 
-    private repoInstance(): UserRepository {
-        if (!this.authRepository) this.authRepository = new UserRepository();
-        return this.authRepository;
+    private userRepo(): UserRepository {
+        if (!this.userRepository) this.userRepository = new UserRepository();
+        return this.userRepository;
     }
 }
 
