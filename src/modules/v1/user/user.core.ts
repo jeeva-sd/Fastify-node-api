@@ -1,5 +1,5 @@
 import * as bcrypt from 'bcrypt';
-import { dataList, take, ResponseX } from '~/server';
+import { dataList, take, ResponseX, Exception } from '~/server';
 import { appConfig } from '~/config';
 import { UserRepository } from './user.repository';
 import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './user.type';
@@ -9,6 +9,7 @@ class UserCore {
 
     public async getUserList(userListPayload: UserListPayload): Promise<ResponseX> {
         const userList = await this.userRepo().findManyUsers(userListPayload);
+        if (!userList.totalRecords) throw new Exception(404);
         return dataList(userList);
     }
 

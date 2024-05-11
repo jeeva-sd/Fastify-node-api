@@ -68,7 +68,7 @@ class UserRepository {
         const updateQuery = await testDB.update(testSchema.user).set(rest).where(eq(testSchema.user.id, id));
 
         const updatedRows = getAffectedRows(updateQuery);
-        if (!updatedRows) throw new Exception(404, 'No user found');
+        if (!updatedRows) throw new Exception(404);
 
         return { id, ...rest };
     }
@@ -80,7 +80,7 @@ class UserRepository {
             .where(eq(testSchema.user.id, id));
 
         const updatedRows = getAffectedRows(deleteQuery);
-        if (!updatedRows) throw new Exception(404, 'No user found');
+        if (!updatedRows) throw new Exception(404);
 
         return { id };
     }
