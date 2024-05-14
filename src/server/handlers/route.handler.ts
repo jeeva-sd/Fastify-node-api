@@ -1,11 +1,11 @@
 import { FastifyInstance as AppInstance } from 'fastify';
 import { ReplayX, ResponseX } from '../types';
 import { exceptionLog } from '~/helpers';
-import { appRoutes } from '../routes';
 import { Exception, GetMetaData, serverError, validatePayload } from '.';
+import { combineRoutes } from '~/controllers';
 
 const attachRouter = (app: AppInstance) => {
-    appRoutes?.forEach((item) => {
+    combineRoutes?.forEach((item) => {
         item.routes.forEach(Controller => {
             const controllerInstance = new Controller() as any;
             const metaData = GetMetaData(controllerInstance);

@@ -1,7 +1,6 @@
 import { Apply, Controller, Post, Sanitize, RequestX, ResponseX } from '~/server';
-import { loginPayload, resetPasswordPayload } from '../core/auth/auth.payload';
 import { tokenAuth } from '~/interceptors';
-import { AuthCore, TokenData } from '~/core/auth';
+import { AuthCore, TokenData, loginPayload, resetPasswordPayload } from '~/core/auth';
 
 @Controller('auth')
 class AuthController {
@@ -14,7 +13,7 @@ class AuthController {
     }
 
     @Post('reset-password')
-    @Apply([tokenAuth])
+    @Apply(tokenAuth)
     @Sanitize(resetPasswordPayload)
     public resetPassword(req: RequestX): Promise<ResponseX> {
         return this.authCore().resetPassword(req.payload, req.tokenData as TokenData);

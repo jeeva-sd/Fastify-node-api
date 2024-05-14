@@ -6,7 +6,7 @@ const v1Controllers = [
     UserController,
 ];
 
-export const routes = [{
+export const combineRoutes = [{
     prefix: 'v1',
     routes: v1Controllers
 }];

@@ -1,7 +1,6 @@
 import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX, ResponseX } from '~/server';
-import { createUserPayload, updateUserPayload, userListPayload } from '../core/user/user.payload';
 import { adminAuth, tokenAuth } from '~/interceptors';
-import { UserCore } from '~/core/user';
+import { UserCore, createUserPayload, updateUserPayload, userListPayload } from '~/core/user';
 
 @Controller('user', [tokenAuth])
 class UserController {
@@ -15,8 +14,8 @@ class UserController {
     }
 
     @Post()
-    @Sanitize(createUserPayload)
     @Apply(adminAuth)
+    @Sanitize(createUserPayload)
     public createUser(req: RequestX): Promise<ResponseX> {
         return this.userCore().createUser(req.payload);
     }
