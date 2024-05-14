@@ -13,7 +13,7 @@
     "db:introspect": "cross-env NODE_ENV=dev drizzle-kit introspect:mysql",
     "db:migrate": "cross-env NODE_ENV=dev ts-node -r tsconfig-paths/register ./src/database/testDB/testDB.migrate.ts",
     "db:seed": "cross-env NODE_ENV=dev ts-node -r tsconfig-paths/register src/database/testDB/testDB.seed.ts",
-    "dev": "cross-env TS_NODE_BASEURL=./src NODE_ENV=dev nodemon --signal SIGHUP -r tsconfig-paths/register src/server/server.ts",
+    "dev": "cross-env TS_NODE_BASEURL=./src NODE_ENV=dev nodemon --signal SIGTERM -r tsconfig-paths/register src/server/server.ts",
     "prod": "tsc && cross-env TS_NODE_BASEURL=./dist NODE_ENV=prod node -r tsconfig-paths/register dist/server/server.js"
   },
   "keywords": [],
