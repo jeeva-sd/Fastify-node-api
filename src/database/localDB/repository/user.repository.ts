@@ -4,16 +4,13 @@ import { getAffectedRows, getInsertId, selectCount } from '~/helpers';
 import { appConfig } from '~/config';
 import {
     CreateUserPayload, UpdateUserPayload,
-    UserListPayload, UserRecord
-} from './type';
+    UserListPayload
+} from '~/rules';
 import { testDB, testSchema } from '~/database/testDB';
 
 class UserRepository {
 
-    public async findManyUsers(userListPayload: UserListPayload): Promise<{
-        userRecord: UserRecord[];
-        totalRecords: number;
-    }> {
+    public async findManyUsers(userListPayload: UserListPayload) {
         const { page, limit, sortBy, sortType, searchTerm } = userListPayload;
         const offset = (page - 1) * limit;
         const take = limit;
@@ -59,12 +56,12 @@ class UserRepository {
         return { totalRecords: totalRecords[0].count, userRecord };
     }
 
-    public async insertUser(UserData: CreateUserPayload): Promise<{ id: number; }> {
+    public async insertUser(UserData: CreateUserPayload) {
         const userRecord = await testDB.insert(testSchema.user).values(UserData);
         return { id: getInsertId(userRecord) };
     }
 
-    public async updateUser({ id, ...rest }: UpdateUserPayload): Promise<{ id: number; }> {
+    public async updateUser({ id, ...rest }: UpdateUserPayload) {
         const updateQuery = await testDB.update(testSchema.user).set(rest).where(eq(testSchema.user.id, id));
 
         const updatedRows = getAffectedRows(updateQuery);
@@ -73,7 +70,7 @@ class UserRepository {
         return { id, ...rest };
     }
 
-    public async deleteUser(id: number): Promise<{ id: number; }> {
+    public async deleteUser(id: number) {
         const deleteQuery = await testDB
             .update(testSchema.user)
             .set({ statusId: appConfig.status.inactive })

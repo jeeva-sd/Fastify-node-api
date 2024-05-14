@@ -1,7 +1,7 @@
 import * as yup from 'yup';
 import { appConfig } from '~/config';
 
-export const userListPayload = yup.object().shape({
+export const userListRule = yup.object().shape({
     page: yup.number().min(1).default(1),
     limit: yup.number().min(1).max(100).default(10),
     sortBy: yup.string().oneOf(['createdAt', 'name', 'phone', 'email', 'roleId']).default('createdAt'),
@@ -9,7 +9,7 @@ export const userListPayload = yup.object().shape({
     searchTerm: yup.string().trim().default('')
 });
 
-export const createUserPayload = yup.object().shape({
+export const createUserRule = yup.object().shape({
     name: yup.string().trim().required('Name is required.'),
     email: yup.string().trim().email('Invalid email format.').required('Email is required.'),
     roleId: yup.number().oneOf([
@@ -24,7 +24,7 @@ export const createUserPayload = yup.object().shape({
         .required('Phone is required.'),
 });
 
-export const updateUserPayload = yup.object().shape({
+export const updateUserRule = yup.object().shape({
     id: yup.number().required('ID is required.'),
     name: yup.string().trim(),
     email: yup.string().trim().email('Invalid email format.'),
@@ -37,6 +37,11 @@ export const updateUserPayload = yup.object().shape({
     phone: yup.string().trim().min(10, 'Phone must be at least 10 characters long.'),
 });
 
-export const deleteUserPayload = yup.object().shape({
+export const deleteUserRule = yup.object().shape({
     id: yup.number().required('User id is required.'),
 });
+
+export type CreateUserPayload = yup.InferType<typeof createUserRule>;
+export type UserListPayload = yup.InferType<typeof userListRule>;
+export type UpdateUserPayload = yup.InferType<typeof updateUserRule>;
+export type DeleteUserPayload = yup.InferType<typeof deleteUserRule>;
