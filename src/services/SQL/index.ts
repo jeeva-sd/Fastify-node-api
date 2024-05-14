@@ -1,2 +1,2 @@
-export * from './sqlManager';
+export * from './sql.service';
 export * from './sqlConnections';

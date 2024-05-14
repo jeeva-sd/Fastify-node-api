@@ -1,5 +1,5 @@
 import { appConfig } from '~/config';
-import { SqlManager } from './sqlManager';
+import { SQLService } from './sql.service';
 import { SqlConnectionConfig } from './type';
 
 // Define database configurations
@@ -23,4 +23,4 @@ const connectionConfig: SqlConnectionConfig = {
 };
 
 // Create a database manager instance
-export const sqlConnections = new SqlManager(connectionConfig);
+export const sqlConnections = new SQLService(connectionConfig);

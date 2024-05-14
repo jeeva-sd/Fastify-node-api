@@ -1,6 +1,6 @@
 import { Apply, Controller, Post, Sanitize, RequestX, ResponseX } from '~/server';
-import { loginPayload, resetPasswordPayload } from '../interceptors/payloadSchema/auth.payload';
-import { tokenAuth } from '../interceptors/auth.middleware';
+import { loginPayload, resetPasswordPayload } from '../core/auth/auth.payload';
+import { tokenAuth } from '~/interceptors';
 import { AuthCore, TokenData } from '~/core/auth';
 
 @Controller('auth')

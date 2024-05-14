@@ -1,6 +1,6 @@
 import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX, ResponseX } from '~/server';
-import { createUserPayload, updateUserPayload, userListPayload } from '../interceptors/payloadSchema/user.payload';
-import { adminAuth, tokenAuth } from '~/interceptors/auth.middleware';
+import { createUserPayload, updateUserPayload, userListPayload } from '../core/user/user.payload';
+import { adminAuth, tokenAuth } from '~/interceptors';
 import { UserCore } from '~/core/user';
 
 @Controller('user', [tokenAuth])
