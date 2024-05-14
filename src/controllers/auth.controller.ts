@@ -1,5 +1,5 @@
 import { Apply, Controller, Post, Sanitize, RequestX, ResponseX } from '~/server';
-import { tokenAuth } from '~/interceptors';
+import { tokenAuth } from '~/middlewares';
 import { loginRule, resetPasswordRule } from '~/rules';
 import { AuthCore, TokenData } from '~/core/auth';
 

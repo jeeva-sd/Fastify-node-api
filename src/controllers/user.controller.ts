@@ -1,5 +1,5 @@
 import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX, ResponseX } from '~/server';
-import { adminAuth, tokenAuth } from '~/interceptors';
+import { adminAuth, tokenAuth } from '~/middlewares';
 import { UserCore } from '~/core/user';
 import { createUserRule, updateUserRule, userListRule } from '~/rules';
 
