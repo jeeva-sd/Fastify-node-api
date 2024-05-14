@@ -1,8 +1,6 @@
 import { appConfig } from '~/config';
-import { testSchema } from './testDB/testDB.schema';
-import { DatabaseManager } from './sqlManager';
+import { SqlManager } from './sqlManager';
 import { SqlConnectionConfig } from './type';
-import { MySql2Database } from 'drizzle-orm/mysql2';
 
 // Define database configurations
 const connectionConfig: SqlConnectionConfig = {
@@ -25,8 +23,4 @@ const connectionConfig: SqlConnectionConfig = {
 };
 
 // Create a database manager instance
-export const sqlDbManager = new DatabaseManager(connectionConfig);
-
-// Get connections
-export const testDB = sqlDbManager.getConnection('testDB', testSchema) as MySql2Database<typeof testSchema>;
-export const localDB = sqlDbManager.getConnection('localDB', testSchema) as MySql2Database<typeof testSchema>;
+export const sqlConnections = new SqlManager(connectionConfig);

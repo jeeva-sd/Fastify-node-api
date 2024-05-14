@@ -3,7 +3,7 @@ import mysql, { Pool } from 'mysql2/promise';
 import { log } from '~/helpers';
 import { SqlConnectionConfig } from './type';
 
-export class DatabaseManager {
+export class SqlManager {
     private connections: { [key: string]: Pool; } = {};
 
     constructor(private connectionConfig: SqlConnectionConfig) { }

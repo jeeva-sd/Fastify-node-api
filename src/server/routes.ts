@@ -1,6 +1,3 @@
-import { v1Controllers } from '~/modules/v1';
+import { routes } from '~/controllers';
 
-export const appRoutes = [{
-    prefix: 'v1',
-    routes: v1Controllers
-}];
+export const appRoutes = routes;

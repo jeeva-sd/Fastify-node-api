@@ -1,6 +1,6 @@
-import { extractError, log } from '../../../helpers';
+import { extractError, log } from '~/helpers';
+import { testDB } from './testDB.connection';
 import { testSchema } from './testDB.schema';
-import { testDB } from '..';
 
 export async function seedDatabase(): Promise<void> {
     try {

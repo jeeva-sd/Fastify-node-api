@@ -1,6 +1,6 @@
-import { extractError, log } from '../../../helpers';
+import { extractError, log } from '~/helpers';
+import { localDB } from './localDB.connection';
 import { localSchema } from './localDB.schema';
-import { localDB } from '..';
 
 export async function seedDatabase(): Promise<void> {
     try {

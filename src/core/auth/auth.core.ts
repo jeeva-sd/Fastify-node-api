@@ -3,7 +3,7 @@ import * as jwt from 'jsonwebtoken';
 import { ResponseX, Exception, take } from '~/server';
 import { appConfig } from '~/config';
 import { AuthRepository } from './auth.repository';
-import { LoginPayload, ResetPasswordPayload, TokenData } from './auth.type';
+import { LoginPayload, ResetPasswordPayload, TokenData } from './type';
 
 class AuthCore {
     private authRepository: AuthRepository;

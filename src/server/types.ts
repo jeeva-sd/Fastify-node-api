@@ -2,7 +2,7 @@ import { FastifyRequest, FastifyReply, FastifyServerOptions } from 'fastify';
 import { FastifyCorsOptions } from '@fastify/cors';
 import { FastifyStaticOptions } from '@fastify/static';
 import { FastifyMultipartOptions } from '@fastify/multipart';
-import { TokenData } from '~/modules/v1/auth';
+import { TokenData } from '~/core/auth';
 
 export interface RequestX extends FastifyRequest {
   payload?: any;

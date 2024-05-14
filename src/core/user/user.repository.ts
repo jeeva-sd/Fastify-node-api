@@ -1,12 +1,12 @@
 import { AnyColumn, and, asc, desc, eq, gt, like } from 'drizzle-orm';
 import { Exception } from '~/server';
 import { getAffectedRows, getInsertId, selectCount } from '~/helpers';
-import { testDB, testSchema } from '~/database';
 import { appConfig } from '~/config';
 import {
     CreateUserPayload, UpdateUserPayload,
     UserListPayload, UserRecord
-} from './user.type';
+} from './type';
+import { testDB, testSchema } from '~/database/testDB';
 
 class UserRepository {
 

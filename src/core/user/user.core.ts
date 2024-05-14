@@ -2,7 +2,7 @@ import * as bcrypt from 'bcrypt';
 import { dataList, take, ResponseX, Exception } from '~/server';
 import { appConfig } from '~/config';
 import { UserRepository } from './user.repository';
-import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './user.type';
+import { CreateUserPayload, DeleteUserPayload, UpdateUserPayload, UserListPayload } from './type';
 
 class UserCore {
     private userRepository: UserRepository;

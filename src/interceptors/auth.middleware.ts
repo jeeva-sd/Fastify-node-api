@@ -1,7 +1,7 @@
 import * as jwt from 'jsonwebtoken';
 import { ReplayX, RequestX, MiddlewareFunction, take } from '~/server';
 import { appConfig } from '~/config';
-import { TokenData } from './auth.type';
+import { TokenData } from '../core/auth/type';
 
 export const tokenAuth: MiddlewareFunction = async (req: RequestX, res: ReplayX) => {
     try {
