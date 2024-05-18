@@ -1,13 +1,12 @@
 import { AnyColumn, and, asc, desc, eq, gt, like } from 'drizzle-orm';
-import { Exception } from '~/server';
+import { Exception, Injectable } from '~/server';
+import { testDB, testSchema } from '~/database/testDB';
 import { getAffectedRows, getInsertId, selectCount } from '~/helpers';
 import { appConfig } from '~/config';
 import {
     CreateUserPayload, UpdateUserPayload,
     UserListPayload
 } from '~/rules';
-import { testDB, testSchema } from '~/database/testDB';
-import { Injectable } from '~/server/DI/injectable';
 
 @Injectable()
 class UserRepository {

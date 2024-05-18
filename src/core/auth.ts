@@ -1,19 +1,9 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { Exception, take } from '~/server';
+import { Injectable, Exception, TokenData, take } from '~/server';
+import { AuthRepository } from '~/database';
 import { appConfig } from '~/config';
 import { LoginPayload, ResetPasswordPayload } from '~/rules';
-import { AuthRepository } from '~/database';
-import { Injectable } from '~/server/DI/injectable';
-
-export interface TokenData {
-    userId: number;
-    roleId: number;
-}
-
-export interface UserData {
-    userData: TokenData;
-}
 
 @Injectable()
 class AuthCore {

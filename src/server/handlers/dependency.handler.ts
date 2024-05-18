@@ -1,14 +1,12 @@
-import 'reflect-metadata';
-import { INJECTABLE_KEY } from './injectable';
-import { combinedControllers } from "~/controllers";
-import { combinedCore } from "~/core";
-import { combinedRepo } from "~/database";
+import { combineModule } from "../DI/combineModule";
 
-export const combineModule = [
-    ...combinedRepo,
-    ...combinedCore,
-    ...combinedControllers,
-];
+export const INJECTABLE_KEY = Symbol('injectable');
+
+export function Injectable(): ClassDecorator {
+    return (target) => {
+        Reflect.defineMetadata(INJECTABLE_KEY, true, target);
+    };
+}
 
 // Dependency container class for managing instances of injectable classes
 class DependencyContainer {

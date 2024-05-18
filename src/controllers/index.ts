@@ -10,3 +10,7 @@ export const combineRoutes = [{
     prefix: 'v1',
     routes: v1Controllers
 }];
+
+export const combinedControllers = [
+    ...v1Controllers,
+];

@@ -1,7 +1,7 @@
-import { Apply, Controller, Post, Sanitize, RequestX, ResponseX } from '~/server';
+import { Apply, Controller, Post, Sanitize, RequestX, ResponseX, TokenData } from '~/server';
 import { tokenAuth } from '~/middlewares';
+import { AuthCore } from '~/core/auth';
 import { loginRule, resetPasswordRule } from '~/rules';
-import { AuthCore, TokenData } from '~/core/auth';
 
 @Controller('auth')
 class AuthController {

@@ -1,16 +1,13 @@
 import { eq } from 'drizzle-orm';
-import { Exception } from '~/server';
-import { getAffectedRows } from '~/helpers';
-import { UserResult } from '~/database/type';
+import { Exception, Injectable } from '~/server';
 import { testDB, testSchema } from '~/database/testDB';
-import { UserRepository } from './user.repository';
-import { Injectable } from '~/server/DI/injectable';
+import { getAffectedRows } from '~/helpers';
 
 @Injectable()
 class AuthRepository {
-    constructor(private userRepo: UserRepository) { }
+    constructor() { }
 
-    public async findUserByEmail(email: string): Promise<UserResult | undefined> {
+    public async findUserByEmail(email: string) {
         const userRecord = await testDB.query.user.findFirst({
             where: eq(testSchema.user.email, email),
         });
@@ -18,7 +15,7 @@ class AuthRepository {
         return userRecord;
     }
 
-    public async findUserById(id: number): Promise<UserResult | undefined> {
+    public async findUserById(id: number) {
         const userRecord = await testDB.query.user.findFirst({
             where: eq(testSchema.user.id, id),
         });
@@ -29,7 +26,7 @@ class AuthRepository {
     public async resetUserPassword({
         userId,
         newPassword
-    }: { userId: number, newPassword: string; }): Promise<null> {
+    }: { userId: number, newPassword: string; }) {
         const result = await testDB
             .update(testSchema.user)
             .set({ password: newPassword })
