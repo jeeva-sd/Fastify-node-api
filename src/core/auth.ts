@@ -1,10 +1,10 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { Exception,  take } from '~/server';
+import { Exception, take } from '~/server';
 import { appConfig } from '~/config';
 import { LoginPayload, ResetPasswordPayload } from '~/rules';
-import { AuthRepository } from '~/database/localDB/repository/auth.repository';
 import { Injectable } from '~/server/inj';
+import { AuthRepository } from '~/database';
 
 export interface TokenData {
     userId: number;

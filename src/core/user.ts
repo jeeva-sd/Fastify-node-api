@@ -1,16 +1,15 @@
 import * as bcrypt from 'bcrypt';
 import { dataList, take, Exception } from '~/server';
 import { appConfig } from '~/config';
-import { UserRepository } from '~/database/localDB/repository/user.repository';
 import {
     CreateUserPayload, DeleteUserPayload, UpdateUserPayload,
     UserListPayload
 } from '~/rules';
 import { Injectable } from '~/server/inj';
+import { UserRepository } from '~/database';
 
 @Injectable()
 class UserCore {
-
     constructor(private userRepository: UserRepository) { }
 
     public async getUserList(payload: UserListPayload) {
