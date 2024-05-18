@@ -1,10 +1,13 @@
-import { FastifyInstance as AppInstance } from 'fastify';
+import 'reflect-metadata';
+import fastify, { FastifyInstance as AppInstance } from 'fastify';
 import fastifyCors from '@fastify/cors';
 import fastifyStatic from '@fastify/static';
 import fastifyMultipart from '@fastify/multipart';
 
 import { appConfig } from '~/config';
 import { notFound, take, attachRouter } from './handlers';
+import container from './code';
+import { AuthController } from '~/controllers/auth.controller';
 
 export class App {
     private app: AppInstance;
@@ -33,6 +36,21 @@ export class App {
 
         attachRouter(this.app);
     }
+
+    // private routeHandler(): void {
+    //     const userControllera: AuthController = container.get<AuthController>(AuthController.name);
+    //     const userController: UserController = container.get<UserController>(UserController.name);
+    //     console.log(userController, 'userController in app');
+    //     console.log(userControllera, 'authController in app');
+
+    //     // Define your routes
+    //     this.app.get('/users', async (request, reply) => {
+    //         const a = await userControllera.login(request);
+    //         // const a = await userController.getUserList();
+    //         reply.send(a);
+    //     });
+    // }
+    
 
     private errorHandler(): void {
         // Catch 404 and forward to error handler

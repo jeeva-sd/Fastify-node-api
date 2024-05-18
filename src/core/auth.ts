@@ -1,10 +1,10 @@
 import * as bcrypt from 'bcrypt';
 import * as jwt from 'jsonwebtoken';
-import { Exception, take } from '~/server';
+import { Exception,  take } from '~/server';
 import { appConfig } from '~/config';
 import { LoginPayload, ResetPasswordPayload } from '~/rules';
-import { repositories } from '~/database';
 import { AuthRepository } from '~/database/localDB/repository/auth.repository';
+import { Injectable } from '~/server/inj';
 
 export interface TokenData {
     userId: number;
@@ -15,12 +15,9 @@ export interface UserData {
     userData: TokenData;
 }
 
+@Injectable()
 class AuthCore {
-    private authRepository: AuthRepository;
-
-    constructor() {
-        this.authRepository = repositories.authRepository;
-    }
+    constructor(private authRepository: AuthRepository) { }
 
     public async login(payload: LoginPayload) {
         const user = await this.authRepository.findUserByEmail(payload.email);

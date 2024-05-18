@@ -1,7 +1,7 @@
 import { AuthController } from './auth.controller';
 import { UserController } from './user.controller';
 
-const v1Controllers = [
+export const v1Controllers = [
     AuthController,
     UserController,
 ];

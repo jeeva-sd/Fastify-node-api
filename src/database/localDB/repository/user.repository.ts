@@ -7,7 +7,9 @@ import {
     UserListPayload
 } from '~/rules';
 import { testDB, testSchema } from '~/database/testDB';
+import { Injectable } from '~/server/inj';
 
+@Injectable()
 class UserRepository {
 
     public async findManyUsers(userListPayload: UserListPayload) {

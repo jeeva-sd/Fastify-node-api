@@ -3,8 +3,12 @@ import { Exception } from '~/server';
 import { getAffectedRows } from '~/helpers';
 import { UserResult } from '~/database/type';
 import { testDB, testSchema } from '~/database/testDB';
+import { UserRepository } from './user.repository';
+import { Injectable } from '~/server/inj';
 
+@Injectable()
 class AuthRepository {
+    constructor(private userRepo: UserRepository) { }
 
     public async findUserByEmail(email: string): Promise<UserResult | undefined> {
         const userRecord = await testDB.query.user.findFirst({

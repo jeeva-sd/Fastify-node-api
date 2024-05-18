@@ -3,11 +3,13 @@ import { ReplayX, ResponseX } from '../types';
 import { exceptionLog } from '~/helpers';
 import { Exception, GetMetaData, serverError, validatePayload } from '.';
 import { combineRoutes } from '~/controllers';
+import container from '../code';
 
 const attachRouter = (app: AppInstance) => {
     combineRoutes?.forEach((item) => {
         item.routes.forEach(Controller => {
-            const controllerInstance = new Controller() as any;
+            const controllerInstance: any = container.get(Controller.name);
+            console.log(controllerInstance, 'controllerInstance')
             const metaData = GetMetaData(controllerInstance);
 
             const { controllerMiddleware = [], controller: controllerPath, routes } = metaData;
@@ -24,7 +26,6 @@ const attachRouter = (app: AppInstance) => {
                     async handler(request, reply): Promise<void> {
                         try {
                             const response = await controllerInstance[methodName](request, reply);
-
                             if (Object.prototype.hasOwnProperty.call(route, 'customResponse')) return;
                             if (!(response instanceof Promise)) return sendResponse(reply, response);
 
