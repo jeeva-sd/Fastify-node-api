@@ -3,8 +3,8 @@ import * as jwt from 'jsonwebtoken';
 import { Exception, take } from '~/server';
 import { appConfig } from '~/config';
 import { LoginPayload, ResetPasswordPayload } from '~/rules';
-import { Injectable } from '~/server/inj';
 import { AuthRepository } from '~/database';
+import { Injectable } from '~/server/DI/injectable';
 
 export interface TokenData {
     userId: number;

@@ -5,8 +5,8 @@ import {
     CreateUserPayload, DeleteUserPayload, UpdateUserPayload,
     UserListPayload
 } from '~/rules';
-import { Injectable } from '~/server/inj';
 import { UserRepository } from '~/database';
+import { Injectable } from '~/server/DI/injectable';
 
 @Injectable()
 class UserCore {

@@ -1,6 +1,6 @@
 import 'reflect-metadata';
 import { combineModule } from './combineModule';
-import { INJECTABLE_KEY } from './handlers/dependency.handler';
+import { INJECTABLE_KEY } from './injectable';
 
 // Dependency container class for managing instances of injectable classes
 class DependencyContainer {
