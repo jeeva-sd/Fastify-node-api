@@ -7,6 +7,7 @@ export interface RequestX extends FastifyRequest {
   payload?: any;
   sanitized?: boolean;
   tokenData?: TokenData;
+  formData?: any;
 }
 
 export interface ResponseX {
