@@ -1,5 +1,5 @@
 import path from 'path';
-import { readEnv } from '~/server';
+import { readEnv } from '~/server/handlers/env.handler';
 import { AppConfig } from './types';
 
 export const appConfig: AppConfig = {

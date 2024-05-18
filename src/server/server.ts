@@ -1,5 +1,7 @@
+import 'reflect-metadata';
 import http, { Server as HttpServer, IncomingMessage, ServerResponse } from 'http';
 import fastify, { FastifyInstance as AppInstance } from 'fastify';
+
 import { App } from './app';
 import { appConfig } from '~/config';
 import { exceptionLog } from '~/helpers';

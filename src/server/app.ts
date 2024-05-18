@@ -1,5 +1,4 @@
-import 'reflect-metadata';
-import fastify, { FastifyInstance as AppInstance } from 'fastify';
+import { FastifyInstance as AppInstance } from 'fastify';
 import fastifyCors from '@fastify/cors';
 import fastifyStatic from '@fastify/static';
 import fastifyMultipart from '@fastify/multipart';
