@@ -3,7 +3,7 @@ import { ReplayX, ResponseX } from '../types';
 import { exceptionLog } from '~/helpers';
 import { Exception, GetMetaData, serverError, validatePayload } from '.';
 import { combineRoutes } from '~/controllers';
-import container from '../DI/dependencyContainer';
+import container from '../DI/DIContainer';
 
 const attachRouter = (app: AppInstance) => {
     combineRoutes?.forEach((item) => {

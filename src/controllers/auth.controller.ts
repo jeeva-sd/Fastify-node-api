@@ -1,4 +1,4 @@
-import { Apply, Controller, Post, Sanitize, RequestX, ResponseX, TokenData } from '~/server';
+import { Apply, Controller, Post, Sanitize, RequestX, TokenData } from '~/server';
 import { tokenAuth } from '~/middlewares';
 import { AuthCore } from '~/core/auth';
 import { loginRule, resetPasswordRule } from '~/rules';
@@ -9,14 +9,14 @@ class AuthController {
 
     @Post('login')
     @Sanitize(loginRule)
-    public login(req: RequestX): Promise<ResponseX> {
+    public login(req: RequestX) {
         return this.authCore.login(req.payload);
     }
 
     @Post('reset-password')
     @Apply(tokenAuth)
     @Sanitize(resetPasswordRule)
-    public resetPassword(req: RequestX): Promise<ResponseX> {
+    public resetPassword(req: RequestX) {
         return this.authCore.resetPassword(req.payload, req.tokenData as TokenData);
     }
 }

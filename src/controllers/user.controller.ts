@@ -1,4 +1,4 @@
-import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX, ResponseX } from '~/server';
+import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX } from '~/server';
 import { adminAuth, tokenAuth } from '~/middlewares';
 import { UserCore } from '~/core/user';
 import { createUserRule, updateUserRule, userListRule } from '~/rules';
@@ -10,28 +10,28 @@ class UserController {
     @Get()
     @Apply(adminAuth)
     @Sanitize(userListRule)
-    public userList(req: RequestX): Promise<ResponseX> {
+    public userList(req: RequestX) {
         return this.userCore.getUserList(req.payload);
     }
 
     @Post()
     @Apply(adminAuth)
     @Sanitize(createUserRule)
-    public createUser(req: RequestX): Promise<ResponseX> {
+    public createUser(req: RequestX) {
         return this.userCore.createUser(req.payload);
     }
 
     @Patch()
     @Apply(adminAuth)
     @Sanitize(updateUserRule)
-    public updateUser(req: RequestX): Promise<ResponseX> {
+    public updateUser(req: RequestX) {
         return this.userCore.updateUser(req.payload);
     }
 
     @Delete(':id/delete')
     @Apply(adminAuth)
     @Sanitize(updateUserRule)
-    public deleteUser(req: RequestX): Promise<ResponseX> {
+    public deleteUser(req: RequestX) {
         return this.userCore.deleteUser(req.payload);
     }
 }

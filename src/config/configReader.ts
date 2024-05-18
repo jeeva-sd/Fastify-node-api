@@ -1,6 +1,6 @@
 import path from 'path';
-import { AppConfig } from './types';
 import { readEnv } from '~/server/handlers/env.handler';
+import { AppConfig } from './types';
 
 export const appConfig: AppConfig = {
     server: {

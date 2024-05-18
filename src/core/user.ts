@@ -1,12 +1,11 @@
 import * as bcrypt from 'bcrypt';
-import { dataList, take, Exception } from '~/server';
+import { dataList, take, Exception, Injectable } from '~/server';
+import { UserRepository } from '~/database';
 import { appConfig } from '~/config';
 import {
     CreateUserPayload, DeleteUserPayload, UpdateUserPayload,
     UserListPayload
 } from '~/rules';
-import { UserRepository } from '~/database';
-import { Injectable } from '~/server/DI/injectable';
 
 @Injectable()
 class UserCore {

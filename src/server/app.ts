@@ -6,7 +6,7 @@ import fastifyMultipart from '@fastify/multipart';
 
 import { appConfig } from '~/config';
 import { notFound, take, attachRouter } from './handlers';
-import container from './DI/dependencyContainer';
+import container from './DI/DIContainer';
 import { AuthController } from '~/controllers/auth.controller';
 
 export class App {
