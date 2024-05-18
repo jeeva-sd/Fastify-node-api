@@ -1,6 +1,6 @@
 import { MessageData, MessageStatus } from './types';
 
-export const responseMessages: { [key: number]: MessageData; } = {
+export const actionMessages: { [key: number]: MessageData; } = {
     // Successful
     200: { message: 'Request completed successfully', status: MessageStatus.success },
     201: { message: 'Resource successfully created', status: MessageStatus.success },

@@ -1,10 +1,9 @@
-import 'reflect-metadata';
+import { combinedControllers } from '~/controllers';
+import { combinedCore } from '~/core';
+import { combinedRepo } from '~/database';
 import { INJECTABLE_KEY } from './injectable';
-import { combinedControllers } from "~/controllers";
-import { combinedCore } from "~/core";
-import { combinedRepo } from "~/database";
 
-export const combineModule = [
+const combineModule = [
     ...combinedRepo,
     ...combinedCore,
     ...combinedControllers,

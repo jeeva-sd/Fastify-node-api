@@ -1,2 +1,2 @@
-export * from './message';
+export * from './actionMessages';
 export * from './types';
