@@ -38,7 +38,7 @@ export const appConfig: AppConfig = {
             fieldNameSize: readEnv('UPLOADS_LIMIT_FIELD_NAME_SIZE', 100), // Max field name size in bytes
             fieldSize: readEnv('UPLOADS_LIMIT_FIELD_SIZE', 1024 * 1024), // Max field value size in bytes
             fields: readEnv('UPLOADS_LIMIT_FIELDS', 10), // Max number of non-file fields
-            fileSize: readEnv('UPLOADS_LIMIT_FIELD_SIZE', 1024 * 1024 * 10), // Max file size in bytes (10MB)
+            fileSize: readEnv('UPLOADS_LIMIT_FIELD_SIZE', 1024 * 1024 * 1), // Max file size in bytes (10MB)
             files: readEnv('UPLOADS_LIMIT_FILES', 1), // Max number of file fields
             headerPairs: readEnv('UPLOADS_LIMIT_HEADER_PAIRS', 200) // Max number of header key-value pairs
         }

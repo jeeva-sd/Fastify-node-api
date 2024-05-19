@@ -1,14 +1,13 @@
 import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX } from '~/server';
-import { adminAuth, tokenAuth } from '~/middlewares';
+import { adminAuth, fileGuard, tokenAuth } from '~/middlewares';
 import { UserCore } from '~/core/user';
-import { createUserRule, updateUserRule, userListRule } from '~/rules';
+import { createUserRule, imageRule, updateAvatarRule, updateUserRule, userListRule } from '~/rules';
 
 @Controller('user', [tokenAuth])
 class UserController {
     constructor(private userCore: UserCore) { }
 
     @Get()
-    @Apply(adminAuth)
     @Sanitize(userListRule)
     public userList(req: RequestX) {
         return this.userCore.getUserList(req.payload);
@@ -33,6 +32,13 @@ class UserController {
     @Sanitize(updateUserRule)
     public deleteUser(req: RequestX) {
         return this.userCore.deleteUser(req.payload);
+    }
+
+    @Post('update-avatar')
+    @Apply([adminAuth, fileGuard(imageRule)])
+    @Sanitize(updateAvatarRule)
+    public updateAvatar(req: RequestX) {
+        return req.payload;
     }
 }
 

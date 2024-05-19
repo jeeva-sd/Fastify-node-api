@@ -1,31 +1,20 @@
 import * as fs from 'fs';
 import * as path from 'path';
 import * as yup from 'yup';
-import { MiddlewareFunction, ReplayX, RequestX, clientError, take } from '~/server';
-import { generateFilename } from '~/helpers';
+import { MiddlewareFunction, ReplayX, RequestX, clientError } from '~/server';
+import { extractError, generateFilename } from '~/helpers';
+import { imageRule } from '~/rules';
 
-interface FileValidationOptions {
-    schema: yup.AnySchema;
-    fieldName: string;
-}
-
-export const imageSchema = yup.object().shape({
-    filename: yup.string().required(),
-    mimetype: yup.string().oneOf(['image/jpeg'], 'Invalid image format').required(),
-    size: yup.number().min(1).max(307200, 'File size should be less than 300KB').required(),
-});
-
-export const fileValidation = (options: FileValidationOptions): MiddlewareFunction => {
+export const fileGuard = (schema: yup.AnySchema = imageRule, fieldName?: string): MiddlewareFunction => {
     return async (req: RequestX, res: ReplayX) => {
         try {
             let formData: Record<string, string> = {};
-            if (!req.isMultipart()) res.code(400).send(take(400));
+            if (!req.isMultipart()) return res.code(400).send(clientError());
             const parts: any = await req.parts();
 
             for await (const part of parts) {
                 if (part.file) {
-
-                    await options.schema.validate({
+                    await schema.validate({
                         filename: part.filename,
                         mimetype: part.mimetype,
                         size: part.file.bytesRead
@@ -46,7 +35,7 @@ export const fileValidation = (options: FileValidationOptions): MiddlewareFuncti
 
             req.formData = formData;
         } catch (error) {
-            console.error('Error during file validation:', error);
+            console.error('FILE VALIDATION ERROR:', extractError(error));
             res.status(400).send(clientError(error));
         }
     };

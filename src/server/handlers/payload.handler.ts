@@ -36,8 +36,6 @@ export const validatePayload = (schema: yup.AnyObjectSchema) => {
                 // ...formData
             };
 
-            console.log(params, 'params')
-
             const validatedParams = await schema.validate(params, appConfig.validation);
             req.payload = { ...validatedParams };
             req.sanitized = true;
