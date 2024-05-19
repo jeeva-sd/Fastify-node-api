@@ -4,7 +4,7 @@ import fastifyStatic from '@fastify/static';
 import fastifyMultipart from '@fastify/multipart';
 
 import { appConfig } from '~/config';
-import { take, attachRouter } from './handlers';
+import { take, attachRouter, customResponse } from './handlers';
 
 export class App {
     private app: AppInstance;
@@ -36,8 +36,11 @@ export class App {
 
     private errorHandler(): void {
         // Catch 404 and forward to error handler
-        this.app.setNotFoundHandler((_req, reply) => {
-            reply.status(404).send(take(404));
+        this.app.setNotFoundHandler((req, reply) => {
+            const requestedUrl = req.url;
+            const message = `The requested resource "${requestedUrl}" was not found.`;
+
+            reply.status(404).send(customResponse(404, message));
         });
 
         // Handle unexpected errors

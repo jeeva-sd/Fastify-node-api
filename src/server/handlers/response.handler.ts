@@ -39,6 +39,10 @@ export const serverError = (errorObj?: any): ResponseX => {
     return buildResponseX(code, null, { error, message });
 };
 
+export const customResponse = (code = 200, message?: string, data = null, error = null): ResponseX => {
+    return buildResponseX(code, data, { error, message });
+};
+
 export const dataFound = (res: any): ResponseX => {
     const data = res.data ?? res;
     return buildResponseX(1000, data);

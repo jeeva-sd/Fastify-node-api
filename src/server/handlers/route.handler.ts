@@ -1,7 +1,7 @@
 import { FastifyInstance as AppInstance, RouteOptions } from 'fastify';
 import { exceptionLog } from '~/helpers';
 import { combineRoutes } from '~/controllers';
-import container from '../DI/DIContainer';
+import container from '../injectionFactory/dependencyContainer';
 import { GetMetaData } from './request.handler';
 import { validatePayload } from './payload.handler';
 import { serverError } from './response.handler';

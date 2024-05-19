@@ -1,3 +1,3 @@
 export * from './handlers'
 export * from './types';
-export * from './DI';
+export * from './injectionFactory';
