@@ -14,27 +14,45 @@ else console.log(`'${environment}' not found. Loading fallback...`);
 
 const envs: Environment = { ...process?.env || {} };
 
+// Define a conditional return type based on the type of fallback
+type ReturnType<T> = T extends number ? number :
+    T extends object ? any[] :
+    T extends boolean ? boolean :
+    T;
+
 // Helper function to parse and return the value with fallback
-const readEnv = (name: string, fallback: unknown) => {
+const readEnv = <T>(name: string, fallback: T): ReturnType<T> => {
     const value = envs[name];
 
     try {
-        if (typeof value === 'undefined') return fallback;
-        if (typeof fallback === 'number') return parseInt(value) ? parseInt(value) : fallback;
-        if (typeof fallback === 'object') return JSON.parse(value) ?? fallback;
+        if (typeof value === 'undefined') return fallback as ReturnType<T>;
+        if (typeof fallback === 'number') {
+            const parsedValue = parseInt(value);
+            return (!isNaN(parsedValue) ? parsedValue : fallback) as ReturnType<T>;
+        }
+        if (typeof fallback === 'object') {
+            const arr = value?.split(',').map(element => {
+                if (element === 'true' || element === 'false') return element === 'true';
+                else if (!isNaN(parseFloat(element))) return parseFloat(element);
+                else return element;
+            });
+
+            return arr as ReturnType<T>;
+        }
         if (typeof fallback === 'boolean') {
             if (value) {
-                return (value === 'true' || value === '1') ? true : ((value === 'false' || value === '0') ? false : fallback);
+                const configValue = (value === 'true' || value === '1') ? true : ((value === 'false' || value === '0') ? false : fallback);
+                return configValue as ReturnType<T>;
             }
 
-            return fallback;
+            return fallback as ReturnType<T>;
         }
 
-        return value;
+        return value as ReturnType<T>;
     }
     catch (error) {
         console.log(`Error in reading ${name} env from ${environment}`);
-        return fallback;
+        return fallback as ReturnType<T>;
     }
 };
 
