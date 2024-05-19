@@ -42,7 +42,8 @@ export const deleteUserRule = yup.object().shape({
 });
 
 export const updateAvatarRule = yup.object().shape({
-    avatar: yup.string().required('Invalid File input'),
+    avatar: yup.string().required(),
+    // image: yup.string().required('Invalid File input'),
 });
 
 export type CreateUserPayload = yup.InferType<typeof createUserRule>;

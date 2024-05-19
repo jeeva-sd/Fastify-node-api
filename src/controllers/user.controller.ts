@@ -1,7 +1,7 @@
 import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX } from '~/server';
 import { adminAuth, fileGuard, tokenAuth } from '~/middlewares';
 import { UserCore } from '~/core/user';
-import { createUserRule, imageRule, updateAvatarRule, updateUserRule, userListRule } from '~/rules';
+import { createUserRule, updateAvatarRule, updateUserRule, userListRule } from '~/rules';
 
 @Controller('user', [tokenAuth])
 class UserController {
@@ -35,7 +35,7 @@ class UserController {
     }
 
     @Post('update-avatar')
-    @Apply([adminAuth, fileGuard(imageRule)])
+    @Apply([adminAuth, fileGuard('avatar')])
     @Sanitize(updateAvatarRule)
     public updateAvatar(req: RequestX) {
         return req.payload;
