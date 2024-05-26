@@ -3,10 +3,18 @@ import mysql, { Pool } from 'mysql2/promise';
 import { log } from '~/helpers';
 import { SqlConnectionConfig } from './type';
 
-export class SQLService {
+class SQLService {
+    private static instance: SQLService;
     private connections: { [key: string]: Pool; } = {};
 
-    constructor(private connectionConfig: SqlConnectionConfig) { }
+    private constructor(private connectionConfig: SqlConnectionConfig) { }
+
+    public static getInstance(connectionConfig: SqlConnectionConfig): SQLService {
+        if (!SQLService.instance) {
+            SQLService.instance = new SQLService(connectionConfig);
+        }
+        return SQLService.instance;
+    }
 
     public getConnection(name: string, schema: Record<string, unknown> | undefined)
         : MySql2Database<Record<string, unknown>> {
@@ -16,8 +24,7 @@ export class SQLService {
             const poolConnection = mysql.createPool(this.connectionConfig[name]);
             this.connections[name] = poolConnection;
             return drizzle(poolConnection, { schema, mode: 'default' });
-        }
-        else {
+        } else {
             throw new Error(`Connection with name '${name}' not found in configuration.`);
         }
     }
@@ -28,6 +35,9 @@ export class SQLService {
             log(`Closing db connection '${name}'...`);
             await this.connections[name].end();
         }
+
         this.connections = {};
     }
 }
+
+export default SQLService.getInstance;
