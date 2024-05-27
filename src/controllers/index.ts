@@ -11,6 +11,7 @@ export const combineRoutes = [{
     routes: v1Controllers
 }];
 
+// Add classes for dependency injection
 export const combinedControllers = [
     ...v1Controllers,
 ];
