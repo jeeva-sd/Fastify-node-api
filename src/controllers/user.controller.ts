@@ -1,11 +1,12 @@
-import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX } from '~/server';
+import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX, take } from '~/server';
 import { adminAuth, fileGuard, tokenAuth } from '~/middlewares';
 import { UserCore } from '~/core/user';
 import { createUserRule, updateAvatarRule, updateUserRule, userListRule } from '~/rules';
+import { JobService } from '~/services/Job';
 
 @Controller('user', [tokenAuth])
 class UserController {
-    constructor(private userCore: UserCore) { }
+    constructor(private userCore: UserCore, private jobService: JobService) { }
 
     @Get()
     @Sanitize(userListRule)
@@ -39,6 +40,18 @@ class UserController {
     @Sanitize(updateAvatarRule)
     public updateAvatar(req: RequestX) {
         return req.payload;
+    }
+
+    @Post('queue')
+    public queueUser() {
+        this.jobService.addJob('exampleJob', { hello: true });
+        return take(200);
+    }
+
+    @Post('queue/v2')
+    public queueUserV2() {
+        this.jobService.addJob('otherJob', { hello: false });
+        return take(200);
     }
 }
 

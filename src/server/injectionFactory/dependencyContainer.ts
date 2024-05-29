@@ -2,11 +2,13 @@ import { combinedControllers } from '~/controllers';
 import { combinedCore } from '~/core';
 import { combinedRepo } from '~/database';
 import { INJECTABLE_KEY } from './injectable';
+import { combinedService } from '~/services';
 
 const combineModule = [
     ...combinedRepo,
     ...combinedCore,
     ...combinedControllers,
+    ...combinedService
 ];
 
 // Dependency container class for managing instances of injectable classes
