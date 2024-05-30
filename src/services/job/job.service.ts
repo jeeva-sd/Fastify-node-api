@@ -1,8 +1,9 @@
-import { EmailService } from './../email/email.service';
 import amqp, { Connection, Channel, ConsumeMessage } from 'amqplib';
 import { log, error as errorLog, warn as warnLog } from 'console';
 import { appConfig } from '~/config';
 import { Injectable } from '~/server';
+import { readHtml } from '~/helpers';
+import { EmailService } from './../email/email.service';
 import { JobData, JobType } from './type';
 
 @Injectable()
@@ -58,7 +59,7 @@ export class JobService {
             await this.handleExampleJob(payload, msg);
             break;
         case 'emailJob':
-            await this.emailJob(payload, msg);
+            await this.handleEmailJob(payload, msg);
             break;
         case 'otherJob':
             await this.handleOtherJob(payload, msg);
@@ -78,13 +79,15 @@ export class JobService {
         this.channel!.ack(msg);
     }
 
-    private async emailJob(payload: unknown, msg: ConsumeMessage): Promise<void> {
+    private async handleEmailJob(payload: unknown, msg: ConsumeMessage): Promise<void> {
         log('Processing email job with payload:', payload);
-        const response = await this.emailService.sendMail(
-            'jeevasubash64@gmail.com',
-            'Hello from Fastify',
-            'This is the first message'
-        );
+
+        const response = await this.emailService.sendMail({
+            to: 'jeevasubash64@gmail.com',
+            subject: 'Hello from Fastify',
+            html: readHtml('hello', { 'user-name': 'john cena' })
+        });
+
         if (response) this.channel!.ack(msg);
     }
 }

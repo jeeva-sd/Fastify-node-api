@@ -18,15 +18,8 @@ export class EmailService {
         });
     }
 
-    async sendMail(to: string, subject: string, text?: string, html?: string): Promise<boolean> {
+    async sendMail(mailOptions: { to: string, subject: string, text?: string, html?: string; }): Promise<boolean> {
         try {
-            const mailOptions = {
-                to,
-                subject,
-                text,
-                html
-            };
-
             const info = await this.transporter.sendMail(mailOptions);
             log('Email sent:', info.response);
             return true;
