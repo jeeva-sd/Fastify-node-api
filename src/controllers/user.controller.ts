@@ -43,15 +43,15 @@ class UserController {
     }
 
     @Post('queue')
-    public queueUser() {
-        this.jobService.addJob('exampleJob', { hello: true });
-        return take(200);
+    public async queueUser() {
+        const addJob = await this.jobService.addJob('exampleJob', { hello: true });
+        return take(addJob ? 200 : 500);
     }
 
     @Post('queue/v2')
-    public queueUserV2() {
-        this.jobService.addJob('otherJob', { hello: false });
-        return take(200);
+    public async queueUserV2() {
+        const addJob = await this.jobService.addJob('otherJob', { hello: false });
+        return take(addJob ? 200 : 500);
     }
 }
 

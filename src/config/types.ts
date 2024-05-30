@@ -7,6 +7,12 @@ export interface AppInfo {
   environment: string;
 }
 
+export interface JobConfig {
+  queueName: string;
+  host: string;
+  durable: boolean;
+}
+
 export interface JwtConfig {
   accessSecretKey: string;
   refreshSecretKey: string;
@@ -46,6 +52,7 @@ export interface StatusConfig {
 export interface AppConfig {
   server: ServerConfig;
   app: AppInfo;
+  jobs: JobConfig;
   jwt: JwtConfig;
   bcrypt: BcryptConfig;
   testDatabase: SqlConfig;

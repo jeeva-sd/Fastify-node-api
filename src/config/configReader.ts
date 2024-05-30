@@ -8,6 +8,7 @@ export const appConfig: AppConfig = {
         ignoreDuplicateSlashes: readEnv('SERVER_IGNORE_DUPLICATE_SLASHES', true),
         onProtoPoisoning: readEnv('SERVER_ON_PROTO_POISONING', 'remove'),
         onConstructorPoisoning: readEnv('SERVER_ON_CONSTRUCTOR_POISONING', 'remove'),
+        ignoreTrailingSlash: readEnv('SERVER_IGNORE_TRAILING_SLASHES', true),
         logger: {
             enabled: readEnv('SERVER_LOGGER_ENABLED', false),
             level: readEnv('SERVER_LOGGER_LEVEL', 'info'),
@@ -48,6 +49,11 @@ export const appConfig: AppConfig = {
         refreshSecretKey: readEnv('JWT_REFRESH_SECRET_KEY', 'default-refresh-secret'),
         accessExpirationDays: readEnv('JWT_ACCESS_EXPIRATION_DAYS', 1 * 24 * 60 * 60), // 1 day
         refreshExpirationDays: readEnv('JWT_REFRESH_EXPIRATION_DAYS', 1 * 24 * 60 * 60), // 1 day
+    },
+    jobs: {
+        queueName: readEnv('JWT_ACCESS_SECRET_KEY', 'job_queue'),
+        host: readEnv('JWT_ACCESS_SECRET_KEY', 'amqp://localhost'),
+        durable: readEnv('JWT_ACCESS_SECRET_KEY', true),
     },
     bcrypt: {
         saltRounds: readEnv('BCRYPT_SALT_ROUNDS', 10),
