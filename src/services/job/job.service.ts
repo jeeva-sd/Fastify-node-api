@@ -1,3 +1,4 @@
+import { EmailService } from './../email/email.service';
 import amqp, { Connection, Channel, ConsumeMessage } from 'amqplib';
 import { log, error as errorLog, warn as warnLog } from 'console';
 import { appConfig } from '~/config';
@@ -10,7 +11,7 @@ export class JobService {
     private channel: Channel | null = null;
     private readonly queueName = appConfig.jobs.queueName;
 
-    constructor() {
+    constructor(private readonly emailService: EmailService) {
         this.initialize();
     }
 
@@ -56,6 +57,9 @@ export class JobService {
         case 'exampleJob':
             await this.handleExampleJob(payload, msg);
             break;
+        case 'emailJob':
+            await this.emailJob(payload, msg);
+            break;
         case 'otherJob':
             await this.handleOtherJob(payload, msg);
             break;
@@ -72,5 +76,15 @@ export class JobService {
     private async handleOtherJob(payload: unknown, msg: ConsumeMessage): Promise<void> {
         log('Processing fallback job with payload:', payload);
         this.channel!.ack(msg);
+    }
+
+    private async emailJob(payload: unknown, msg: ConsumeMessage): Promise<void> {
+        log('Processing email job with payload:', payload);
+        const response = await this.emailService.sendMail(
+            'jeevasubash64@gmail.com',
+            'Hello from Fastify',
+            'This is the first message'
+        );
+        if (response) this.channel!.ack(msg);
     }
 }

@@ -13,6 +13,11 @@ export interface JobConfig {
   durable: boolean;
 }
 
+export interface MailerConfig {
+  appEmail: string;
+  service: string;
+  password: string;
+}
 export interface JwtConfig {
   accessSecretKey: string;
   refreshSecretKey: string;
@@ -54,6 +59,7 @@ export interface AppConfig {
   app: AppInfo;
   jobs: JobConfig;
   jwt: JwtConfig;
+  mailer: MailerConfig;
   bcrypt: BcryptConfig;
   testDatabase: SqlConfig;
   localDatabase: SqlConfig;

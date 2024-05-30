@@ -55,6 +55,11 @@ export const appConfig: AppConfig = {
         host: readEnv('JWT_ACCESS_SECRET_KEY', 'amqp://localhost'),
         durable: readEnv('JWT_ACCESS_SECRET_KEY', true),
     },
+    mailer: {
+        service: readEnv('JWT_ACCESS_SECRET_KEY', 'gmail'),
+        appEmail: readEnv('JWT_ACCESS_SECRET_KEY', 'styls360@gmail.com'),
+        password: readEnv('JWT_ACCESS_SECRET_KEY', 'qxbj plqf bvjl uzlj'),
+    },
     bcrypt: {
         saltRounds: readEnv('BCRYPT_SALT_ROUNDS', 10),
     },

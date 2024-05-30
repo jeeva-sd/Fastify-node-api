@@ -2,7 +2,7 @@ import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX, take }
 import { adminAuth, fileGuard, tokenAuth } from '~/middlewares';
 import { UserCore } from '~/core/user';
 import { createUserRule, updateAvatarRule, updateUserRule, userListRule } from '~/rules';
-import { JobService } from '~/services/Job';
+import { JobService } from '~/services/job';
 
 @Controller('user', [tokenAuth])
 class UserController {
@@ -51,6 +51,12 @@ class UserController {
     @Post('queue/v2')
     public async queueUserV2() {
         const addJob = await this.jobService.addJob('otherJob', { hello: false });
+        return take(addJob ? 200 : 500);
+    }
+
+    @Post('say-hello')
+    public async sayHello() {
+        const addJob = await this.jobService.addJob('emailJob', { hello: false });
         return take(addJob ? 200 : 500);
     }
 }
