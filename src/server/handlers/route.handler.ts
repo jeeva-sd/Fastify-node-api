@@ -36,7 +36,6 @@ const attachRouter = (app: AppInstance) => {
                                         reply.status(500).send(serverError(error));
                                     });
                             }
-                            sendResponse(reply, response);
                         } catch (error) {
                             handleException(reply, error);
                         }

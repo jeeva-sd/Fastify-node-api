@@ -42,8 +42,15 @@ export const deleteUserRule = yup.object().shape({
 });
 
 export const updateAvatarRule = yup.object().shape({
-    avatar: yup.string().required(),
-    // image: yup.string().required('Invalid File input'),
+    avatar: yup.object().shape({
+        fileSize: yup
+            .number()
+            .required()
+            .positive()
+            .max(1024 * 1024, 'File size should be less than 1MB'), // Max size 1MB (1024 * 1024 bytes)
+        fileType: yup.string().required().oneOf(['image/jpeg', 'image/png']), // Allowed types: jpeg or png
+        fileBuffer: yup.mixed().required(), // This field can be of any type
+    }),
 });
 
 export type CreateUserPayload = yup.InferType<typeof createUserRule>;

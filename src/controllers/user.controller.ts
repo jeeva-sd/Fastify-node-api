@@ -1,8 +1,12 @@
-import { Controller, Sanitize, Post, Patch, Apply, Get, Delete, RequestX, take } from '~/server';
-import { adminAuth, fileGuard, tokenAuth } from '~/middlewares';
+import {
+    Controller, Sanitize, Post, Patch, Apply, Get, Delete,
+    RequestX, take, ReplayX,
+    EnablePassThrough
+} from '~/server';
+import { adminAuth, tokenAuth } from '~/middlewares';
 import { UserCore } from '~/core/user';
 import { createUserRule, updateAvatarRule, updateUserRule, userListRule } from '~/rules';
-import { JobService } from '~/services/job';
+import { JobService } from '~/services';
 
 @Controller('user', [tokenAuth])
 class UserController {
@@ -36,10 +40,11 @@ class UserController {
     }
 
     @Post('update-avatar')
-    @Apply([adminAuth, fileGuard('avatar')])
+    @Apply([adminAuth])
     @Sanitize(updateAvatarRule)
-    public updateAvatar(req: RequestX) {
-        return req.payload;
+    @EnablePassThrough
+    public updateAvatar(req: RequestX, res: ReplayX) {
+        return res.send(req.payload);
     }
 
     @Post('queue')

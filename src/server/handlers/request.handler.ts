@@ -15,7 +15,7 @@ export function GetMetaData(target: TargetData): MetaData {
 }
 
 // Custom response decorator for handling responses
-export const CustomResponse = (target: Record<string, any>, methodName: string, descriptor: PropertyDescriptor) => {
+export const EnablePassThrough = (target: Record<string, any>, methodName: string, descriptor: PropertyDescriptor) => {
     const meta = GetMetaData(target);
     meta.routes[methodName] = { ...meta.routes[methodName], customResponse: true };
     return descriptor;
