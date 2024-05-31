@@ -28,7 +28,8 @@ const attachRouter = (app: AppInstance) => {
                     async handler(request, reply): Promise<void> {
                         try {
                             const response = await controllerInstance[methodName](request, reply);
-                            if (!route.customResponse && response instanceof Promise) {
+                            if (route.customResponse) return;
+                            if (response instanceof Promise) {
                                 return response
                                     .then((data: ResponseX) => sendResponse(reply, data))
                                     .catch((error) => {
@@ -36,6 +37,7 @@ const attachRouter = (app: AppInstance) => {
                                         reply.status(500).send(serverError(error));
                                     });
                             }
+                            sendResponse(reply, response);
                         } catch (error) {
                             handleException(reply, error);
                         }
