@@ -2,6 +2,7 @@ import * as fs from 'fs';
 import * as yup from 'yup';
 import { ReplayX, RequestX } from '~/server';
 import { appConfig } from '~/config';
+import { fileMagicNumbers } from '~/constants';
 import { clientError } from './response.handler';
 
 export const validatePayload = (schema: yup.AnyObjectSchema) => {
@@ -75,25 +76,13 @@ const detectFileType = (buffer: Buffer): string => {
         return 'unknown';
     }
 
-    // Define magic numbers for common file types
-    const magicNumbers: { [key: string]: string; } = {
-        'FFD8FFE0': 'image/jpeg',
-        '89504E47': 'image/png',
-        '47494638': 'image/gif',
-        '25504446': 'application/pdf',
-        '7B5C727466': 'application/rtf', // RTF files
-        'D0CF11E0A1B11AE1': 'application/msword', // DOC files
-        '377ABCAF271C': 'application/7z', // 7z files
-        '504B0304': 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet', // XLSX files
-    };
-
     // Get the first 4 bytes of the buffer and convert them to hexadecimal
     const magicBytes = buffer.slice(0, 4).toString('hex').toUpperCase();
 
     // Check if any magic number matches
-    for (const magicNumber in magicNumbers) {
+    for (const magicNumber in fileMagicNumbers) {
         if (magicBytes.startsWith(magicNumber)) {
-            return magicNumbers[magicNumber];
+            return fileMagicNumbers[magicNumber];
         }
     }
 

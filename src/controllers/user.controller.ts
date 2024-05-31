@@ -44,7 +44,7 @@ class UserController {
     @Sanitize(updateAvatarRule)
     @EnablePassThrough
     public updateAvatar(req: RequestX, res: ReplayX) {
-        return res.send(req.payload);
+        return res.send(req.payload.avatar);
     }
 
     @Post('queue')

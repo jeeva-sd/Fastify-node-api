@@ -48,7 +48,7 @@ export const updateAvatarRule = yup.object().shape({
             .required()
             .positive()
             .max(1024 * 1024, 'File size should be less than 1MB'), // Max size 1MB (1024 * 1024 bytes)
-        fileType: yup.string().required().oneOf(['image/jpeg', 'image/png']), // Allowed types: jpeg or png
+        fileType: yup.string().required().oneOf(['jpeg', 'png']), // Allowed types: jpeg or png
         fileBuffer: yup.mixed().required(), // This field can be of any type
     }),
 });
