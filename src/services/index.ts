@@ -5,6 +5,6 @@ export * from './axios';
 export * from './SQL';
 export * from './job';
 
-export const combinedService = [
+export const injectableServices = [
     JobService, EmailService
 ];

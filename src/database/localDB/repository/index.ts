@@ -5,7 +5,7 @@ import { AuthRepository } from './auth.repository';
 import { UserRepository } from './user.repository';
 
 // Add classes for dependency injection
-export const combinedRepo = [
+export const injectableRepos = [
     AuthRepository,
     UserRepository,
 ];
