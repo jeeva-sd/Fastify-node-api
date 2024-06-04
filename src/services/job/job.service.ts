@@ -1,10 +1,11 @@
 import amqp, { Connection, Channel, ConsumeMessage } from 'amqplib';
-import { log, error as errorLog, warn as warnLog } from 'console';
+import { error as errorLog, warn as warnLog } from 'console';
 import { appConfig } from '~/config';
 import { Injectable } from '~/server';
 import { readHtml } from '~/helpers';
 import { EmailService } from './../email/email.service';
 import { JobData, JobType } from './type';
+import { LogService } from '../logs';
 
 @Injectable()
 export class JobService {
@@ -30,7 +31,7 @@ export class JobService {
                 }
             }, { noAck: false });
 
-            log(`Waiting for jobs in '${this.queueName}' queue...`);
+            LogService.bgMagenta(`Waiting for jobs in '${this.queueName}' queue...`);
         } catch (error) {
             errorLog('Failed to initialize RabbitMQ connection:', error);
         }
@@ -44,7 +45,7 @@ export class JobService {
             }
             const job: JobData = { type, payload };
             this.channel.sendToQueue(this.queueName, Buffer.from(JSON.stringify(job)), { persistent: true });
-            log(`Job added to queue: ${type}`);
+            LogService.bgMagenta(`Job added to queue: ${type}`);
             return true;
         } catch (error) {
             errorLog(`Error adding job to queue: ${error}`);
@@ -69,18 +70,18 @@ export class JobService {
         }
     }
 
-    private async handleExampleJob(payload: unknown, msg: ConsumeMessage): Promise<void> {
-        log('Processing example job with payload:', payload);
+    private async handleExampleJob(_payload: unknown, msg: ConsumeMessage): Promise<void> {
+        LogService.bgMagenta('Processing example job');
         this.channel!.ack(msg);
     }
 
     private async handleOtherJob(payload: unknown, msg: ConsumeMessage): Promise<void> {
-        log('Processing fallback job with payload:', payload);
+        LogService.bgMagenta('Processing fallback job');
         this.channel!.ack(msg);
     }
 
     private async handleEmailJob(payload: unknown, msg: ConsumeMessage): Promise<void> {
-        log('Processing email job with payload:', payload);
+        LogService.bgMagenta('Processing email job');
 
         const response = await this.emailService.sendMail({
             to: 'jeevasubash64@gmail.com',

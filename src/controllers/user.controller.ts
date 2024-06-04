@@ -10,7 +10,7 @@ import { JobService } from '~/services';
 
 @Controller('user', [tokenAuth])
 class UserController {
-    constructor(private userCore: UserCore, private jobService: JobService) { }
+    constructor(private userCore: UserCore, private jobs: JobService) { }
 
     @Get()
     @Sanitize(userListRule)
@@ -49,19 +49,19 @@ class UserController {
 
     @Post('queue')
     public async queueUser() {
-        const addJob = await this.jobService.addJob('exampleJob', { hello: true });
+        const addJob = await this.jobs.addJob('exampleJob', { hello: true });
         return take(addJob ? 200 : 500);
     }
 
     @Post('queue/v2')
     public async queueUserV2() {
-        const addJob = await this.jobService.addJob('otherJob', { hello: false });
+        const addJob = await this.jobs.addJob('otherJob', { hello: false });
         return take(addJob ? 200 : 500);
     }
 
     @Post('say-hello')
     public async sayHello() {
-        const addJob = await this.jobService.addJob('emailJob', { hello: false });
+        const addJob = await this.jobs.addJob('emailJob', { hello: false });
         return take(addJob ? 200 : 500);
     }
 }

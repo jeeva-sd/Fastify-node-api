@@ -27,7 +27,7 @@ export const take = (code = 200, res?: any, options?: any): ResponseX => {
 
 // client error
 export const clientError = (error?: any): ResponseX => {
-    return buildResponseX(400, null, { message: error, error: 'Validation error' });
+    return buildResponseX(400, null, { message: error, error: 'Payload validation error' });
 };
 
 // server error

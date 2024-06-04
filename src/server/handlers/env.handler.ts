@@ -1,6 +1,7 @@
 import fs from 'fs';
 import dotenv from 'dotenv';
 import { Environment } from './type';
+import { log } from 'console';
 
 // Load environment variables from the corresponding .env file
 const environment = process?.env?.NODE_ENV ? `.${process.env.NODE_ENV.trim()}.env` : '.env';
@@ -51,7 +52,7 @@ const readEnv = <T>(name: string, fallback: T): ReturnType<T> => {
         return value as ReturnType<T>;
     }
     catch (error) {
-        console.log(`Error in reading ${name} env from ${environment}`);
+        log(`Error in reading ${name} env from ${environment}`);
         return fallback as ReturnType<T>;
     }
 };
