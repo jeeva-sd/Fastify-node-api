@@ -1,11 +1,18 @@
-import type { Config } from 'drizzle-kit';
-import { appConfig } from './src/config';
+import { appConfig } from './src/config/configReader';
+import { defineConfig } from 'drizzle-kit';
 
-export default {
-    schema: './src/database/sql/testDB/testDB.schema.ts',
-    out: './migrations',
-    driver: 'mysql2',
+const dbConfig = appConfig.testDatabase;
+
+export default defineConfig({
+    dialect: 'mysql',
     dbCredentials: {
-        uri: appConfig.testDatabase.url
+        host: dbConfig.host,
+        user: dbConfig.user,
+        password: dbConfig.password,
+        database: dbConfig.database,
+        port: dbConfig.port,
     },
-} satisfies Config;
+    schema: './src/database/localDB/localDB.schema.ts',
+    introspect: { casing: 'camel' },
+    out: 'migrations',
+});

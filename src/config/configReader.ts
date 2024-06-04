@@ -1,6 +1,6 @@
 import path from 'path';
-import { AppConfig } from './types';
 import { readEnv } from '~/server/handlers/env.handler';
+import { AppConfig } from './types';
 
 export const appConfig: AppConfig = {
     server: {
@@ -8,6 +8,7 @@ export const appConfig: AppConfig = {
         ignoreDuplicateSlashes: readEnv('SERVER_IGNORE_DUPLICATE_SLASHES', true),
         onProtoPoisoning: readEnv('SERVER_ON_PROTO_POISONING', 'remove'),
         onConstructorPoisoning: readEnv('SERVER_ON_CONSTRUCTOR_POISONING', 'remove'),
+        ignoreTrailingSlash: readEnv('SERVER_IGNORE_TRAILING_SLASHES', true),
         logger: {
             enabled: readEnv('SERVER_LOGGER_ENABLED', false),
             level: readEnv('SERVER_LOGGER_LEVEL', 'info'),
@@ -38,8 +39,8 @@ export const appConfig: AppConfig = {
             fieldNameSize: readEnv('UPLOADS_LIMIT_FIELD_NAME_SIZE', 100), // Max field name size in bytes
             fieldSize: readEnv('UPLOADS_LIMIT_FIELD_SIZE', 1024 * 1024), // Max field value size in bytes
             fields: readEnv('UPLOADS_LIMIT_FIELDS', 10), // Max number of non-file fields
-            fileSize: readEnv('UPLOADS_LIMIT_FIELD_SIZE', 1024 * 1024 * 10), // Max file size in bytes (10MB)
-            files: readEnv('UPLOADS_LIMIT_FILES', 1), // Max number of file fields
+            fileSize: readEnv('UPLOADS_LIMIT_FIELD_SIZE', 1024 * 1024 * 1), // Max file size in bytes (10MB)
+            files: readEnv('UPLOADS_LIMIT_FILES', 10), // Max number of file fields
             headerPairs: readEnv('UPLOADS_LIMIT_HEADER_PAIRS', 200) // Max number of header key-value pairs
         }
     },
@@ -49,17 +50,27 @@ export const appConfig: AppConfig = {
         accessExpirationDays: readEnv('JWT_ACCESS_EXPIRATION_DAYS', 1 * 24 * 60 * 60), // 1 day
         refreshExpirationDays: readEnv('JWT_REFRESH_EXPIRATION_DAYS', 1 * 24 * 60 * 60), // 1 day
     },
+    jobs: {
+        queueName: readEnv('JWT_ACCESS_SECRET_KEY', 'job_queue'),
+        host: readEnv('JWT_ACCESS_SECRET_KEY', 'amqp://localhost'),
+        durable: readEnv('JWT_ACCESS_SECRET_KEY', true),
+    },
+    mailer: {
+        service: readEnv('JWT_ACCESS_SECRET_KEY', 'gmail'),
+        appEmail: readEnv('JWT_ACCESS_SECRET_KEY', 'styls360@gmail.com'),
+        password: readEnv('JWT_ACCESS_SECRET_KEY', 'qxbj plqf bvjl uzlj'),
+    },
     bcrypt: {
         saltRounds: readEnv('BCRYPT_SALT_ROUNDS', 10),
     },
     testDatabase: {
-        host: readEnv('TEST_DATABASE_HOST', 'localhost'),
-        port: readEnv('TEST_DATABASE_PORT', 3306),
-        user: readEnv('TEST_DATABASE_USERNAME', 'root'),
-        password: readEnv('TEST_DATABASE_PASSWORD', 'QwertyuI'),
-        database: readEnv('TEST_DATABASE_NAME', 'drizzle'),
-        connectionLimit: readEnv('TEST_DATABASE_CONNECTION_LIMIT', 10),
-        url: readEnv('TEST_DATABASE_URL', 'mysql://root:QwertyuI@localhost:3306/worthReads'),
+        host: readEnv('LOCAL_DATABASE_HOST', 'localhost'),
+        port: readEnv('LOCAL_DATABASE_PORT', 3306),
+        user: readEnv('LOCAL_DATABASE_USERNAME', 'demoUser'),
+        password: readEnv('LOCAL_DATABASE_PASSWORD', 'QwertyuI@123'),
+        database: readEnv('LOCAL_DATABASE_NAME', 'test'),
+        connectionLimit: readEnv('LOCAL_DATABASE_CONNECTION_LIMIT', 10),
+        url: readEnv('LOCAL_DATABASE_URL', 'mysql://demoUsers:QwertyuI@123@localhost:3306/test'),
     },
     localDatabase: {
         host: readEnv('LOCAL_DATABASE_HOST', 'localhost'),

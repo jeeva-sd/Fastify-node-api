@@ -15,7 +15,7 @@ export function GetMetaData(target: TargetData): MetaData {
 }
 
 // Custom response decorator for handling responses
-export const CustomResponse = (target: Record<string, any>, methodName: string, descriptor: PropertyDescriptor) => {
+export const EnablePassThrough = (target: Record<string, any>, methodName: string, descriptor: PropertyDescriptor) => {
     const meta = GetMetaData(target);
     meta.routes[methodName] = { ...meta.routes[methodName], customResponse: true };
     return descriptor;
@@ -24,6 +24,7 @@ export const CustomResponse = (target: Record<string, any>, methodName: string, 
 // Controller decorator
 export const Controller = (controller: string, middleware?: MiddlewareFunction[]): ClassDecorator => {
     return (target: Record<string, any>) => {
+        // Reflect.defineMetadata(INJECTABLE_KEY, true, target);
         const meta = GetMetaData(target.prototype);
         meta.controller = controller;
         meta.controllerMiddleware = middleware || [];

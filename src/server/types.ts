@@ -2,12 +2,12 @@ import { FastifyRequest, FastifyReply, FastifyServerOptions } from 'fastify';
 import { FastifyCorsOptions } from '@fastify/cors';
 import { FastifyStaticOptions } from '@fastify/static';
 import { FastifyMultipartOptions } from '@fastify/multipart';
-import { TokenData } from '~/modules/v1/auth';
 
 export interface RequestX extends FastifyRequest {
   payload?: any;
   sanitized?: boolean;
   tokenData?: TokenData;
+  formData?: any;
 }
 
 export interface ResponseX {
@@ -32,4 +32,13 @@ export interface ValidationConfig {
   stripUnknown?: boolean;
   context?: object;
   strict?: boolean;
+}
+
+export interface TokenData {
+  userId: number;
+  roleId: number;
+}
+
+export interface UserData {
+  userData: TokenData;
 }

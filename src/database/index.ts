@@ -1,1 +1,2 @@
-export * from './sql';
+export * from './localDB';
+export * from './type';

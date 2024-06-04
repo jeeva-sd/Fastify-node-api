@@ -7,6 +7,17 @@ export interface AppInfo {
   environment: string;
 }
 
+export interface JobConfig {
+  queueName: string;
+  host: string;
+  durable: boolean;
+}
+
+export interface MailerConfig {
+  appEmail: string;
+  service: string;
+  password: string;
+}
 export interface JwtConfig {
   accessSecretKey: string;
   refreshSecretKey: string;
@@ -46,7 +57,9 @@ export interface StatusConfig {
 export interface AppConfig {
   server: ServerConfig;
   app: AppInfo;
+  jobs: JobConfig;
   jwt: JwtConfig;
+  mailer: MailerConfig;
   bcrypt: BcryptConfig;
   testDatabase: SqlConfig;
   localDatabase: SqlConfig;

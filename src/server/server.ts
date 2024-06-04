@@ -1,9 +1,11 @@
+import 'reflect-metadata';
 import http, { Server as HttpServer, IncomingMessage, ServerResponse } from 'http';
 import fastify, { FastifyInstance as AppInstance } from 'fastify';
+
 import { App } from './app';
 import { appConfig } from '~/config';
 import { exceptionLog } from '~/helpers';
-import { sqlDbManager } from '~/database';
+import { sqlConnections } from '~/services';
 
 export class Server {
     private port: number;
@@ -62,7 +64,7 @@ export class Server {
     }
 
     private async shutdown() {
-        await sqlDbManager.closeConnections();
+        await sqlConnections.closeConnections();
 
         console.info('Closing server...');
 

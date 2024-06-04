@@ -1,12 +1,12 @@
 import { ResponseX } from '~/server';
 import { appConfig } from '~/config';
 import { extractError } from '~/helpers';
-import { responseMessages, MessageStatus } from '../../constants';
+import { actionMessages, MessageStatus } from '~/constants';
 
 // Common function to build an ResponseX
 const buildResponseX = (code: number, data?: any, options?: any): ResponseX => {
-    const message = options?.message ? extractError(options?.message) : (responseMessages[code]?.message ?? null);
-    const status = responseMessages[code]?.status ?? MessageStatus.success;
+    const message = options?.message ? extractError(options?.message) : (actionMessages[code]?.message ?? null);
+    const status = actionMessages[code]?.status ?? MessageStatus.success;
     const error = options?.error ? extractError(options?.error) : null;
 
     return {
@@ -25,19 +25,9 @@ export const take = (code = 200, res?: any, options?: any): ResponseX => {
     return buildResponseX(code, data, options);
 };
 
-// exception
-export const exception = (error?: any, data?: any): ResponseX => {
-    return buildResponseX(1004, data, { message: error });
-};
-
-// forbidden request
-export const forbidden = (error?: any): ResponseX => {
-    return buildResponseX(403, null, { error });
-};
-
 // client error
 export const clientError = (error?: any): ResponseX => {
-    return buildResponseX(400, null, { message: error, error: 'Validation error' });
+    return buildResponseX(400, null, { message: error, error: 'Payload validation error' });
 };
 
 // server error
@@ -49,9 +39,8 @@ export const serverError = (errorObj?: any): ResponseX => {
     return buildResponseX(code, null, { error, message });
 };
 
-// not found
-export const notFound = (error?: any): ResponseX => {
-    return buildResponseX(404, null, { error });
+export const customResponse = (code = 200, message?: string, data = null, error = null): ResponseX => {
+    return buildResponseX(code, data, { error, message });
 };
 
 export const dataFound = (res: any): ResponseX => {

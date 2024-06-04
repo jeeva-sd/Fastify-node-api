@@ -1,1 +1,0 @@
-export { testSchema } from './testDB.schema';
